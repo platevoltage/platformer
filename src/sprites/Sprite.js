@@ -29,18 +29,24 @@ export default class Sprite {
         }
         if (this.movingLeft) {
             this.moveLeft();
-            if (this.xLeftVelocity < 10) this.xLeftVelocity++;
+            if (this.xLeftVelocity < 20) this.xLeftVelocity++;
+            console.log("L", this.xLeftVelocity);
         }
-        else if (this.xLeftVelocity > 1) {
+        else if (this.xLeftVelocity > 0) {
+            this.moveLeft();
             this.xLeftVelocity--;
+            console.log("L", this.xLeftVelocity);
         }
         if (this.movingRight) {
             this.moveRight();
-            if (this.xRightVelocity < 10) this.xRightVelocity++;
+            if (this.xRightVelocity < 20) this.xRightVelocity++;
+            console.log("L", this.xLeftVelocity);
          
         }
-        else if (this.xRightVelocity > 1) {
+        else if (this.xRightVelocity > 0) {
+            this.moveRight();
             this.xRightVelocity--;
+            console.log("L", this.xLeftVelocity);
         }
         this.ctx.fillStyle = "#FF0000";
         this.ctx.fillRect(
