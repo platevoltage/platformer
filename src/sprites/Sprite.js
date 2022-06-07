@@ -5,12 +5,15 @@ export default class Sprite {
         this.width = 50;
         this.float = 0;
         this.x = x;
-        this.y = y-this.height-this.float;
+        this.y = y;
         this.movingLeft = false;
         this.movingRight = false;
+        this.jumping = false;
         this.xLeftVelocity = 0;
         this.xRightVelocity = 0;
-        this.yVelocity = 0;
+        this.yUpVelocity = 0;
+        this.yDownVelocity = 0;
+        this.jumpTime = 0;
     }
     init() { 
         console.log("new sprite");
@@ -20,38 +23,53 @@ export default class Sprite {
         
     }
     update() {
+        // console.log(this.float);
         if (this.float > 0) {
-            this.yVelocity++;
-            this.float-=this.yVelocity;
+            this.yDownVelocity++;
+            this.float-=this.yDownVelocity;
         } 
         else {
-            this.yVelocity = 0;
+            this.yDownVelocity = 0;
+            this.float= 0;
+        }
+        if (this.yUpVelocity > 0) {
+            this.float+=this.yUpVelocity*4;
+            this.yUpVelocity--;
+            // console.log(this.yUpVelocity);
         }
         if (this.movingLeft) {
             this.moveLeft();
             if (this.xLeftVelocity < 20) this.xLeftVelocity++;
-            console.log("L", this.xLeftVelocity);
+
         }
         else if (this.xLeftVelocity > 0) {
             this.moveLeft();
             this.xLeftVelocity--;
-            console.log("L", this.xLeftVelocity);
+
         }
         if (this.movingRight) {
             this.moveRight();
             if (this.xRightVelocity < 20) this.xRightVelocity++;
-            console.log("L", this.xLeftVelocity);
+  
          
         }
         else if (this.xRightVelocity > 0) {
             this.moveRight();
             this.xRightVelocity--;
-            console.log("L", this.xLeftVelocity);
+
+        }
+        if (this.jumping) {
+            if (this.jumpTime < 10) this.jumpTime++;
+            this.jump();
+            // console.log(this.jumpTime);
+        }
+        else {
+            this.jumpTime = 0;
         }
         this.ctx.fillStyle = "#FF0000";
         this.ctx.fillRect(
             this.x,
-            this.y-this.float,
+            this.y-this.height-this.float,
             this.width,
             this.height
         );
@@ -65,8 +83,9 @@ export default class Sprite {
     }
     jump() {
         if (this.float <= 0) {
-            this.float = 200;
-            this.yVelocity = 0;
+            // this.float = 200; 
+            this.yDownVelocity = 0;
+            this.yUpVelocity = 10;
         }
     }
     

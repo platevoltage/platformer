@@ -42,7 +42,8 @@ function main() {
         }
         if (e.key == " " && !e.repeat) {
             // console.log("Space");
-            sprite.jump();
+            sprite.jumping = true
+            // sprite.jump();
         }
 
     }
@@ -56,6 +57,11 @@ function main() {
         if (e.key == "ArrowRight") {
             // console.log("ArrowRightxx");
             sprite.movingRight = false;
+        }
+        if (e.key == " " && !e.repeat) {
+            // console.log("Space");
+            sprite.jumping = false;
+
         }
     }
     sprite.init();
