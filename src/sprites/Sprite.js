@@ -14,6 +14,7 @@ export default class Sprite {
         this.yUpVelocity = 0;
         this.yDownVelocity = 0;
         this.jumpTime = 0;
+        this.obstacles;
     }
     init() { 
         console.log("new sprite");
@@ -79,7 +80,17 @@ export default class Sprite {
         this.x-=this.xLeftVelocity;
     }
     moveRight() {
-        this.x+=this.xRightVelocity;
+        console.log(this.obstacles.y, this.y-this.float);
+        if (
+            this.obstacles.x-this.obstacles.width > this.x || 
+            this.obstacles.y-this.obstacles.height > this.y-this.float ||
+            this.x > this.obstacles.x
+        ) {
+
+            this.x+=this.xRightVelocity;
+        }
+
+        
     }
     jump() {
         if (this.float <= 0) {

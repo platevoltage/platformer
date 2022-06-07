@@ -6,13 +6,12 @@ const height = 480;
 
 
 
-
 function main() {
     var gameArea = {
         canvas : document.createElement("canvas"),
         start : function() {
-            this.canvas.width = 1000;
-            this.canvas.height = 500;
+            this.canvas.width = width;
+            this.canvas.height = height;
             this.context = this.canvas.getContext("2d");
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
             this.interval = setInterval(updateGameArea, 20);
@@ -23,26 +22,29 @@ function main() {
     }
     
     gameArea.start();
-    const sprite = new Sprite(gameArea.context, 20, height);
+    const player = new Sprite(gameArea.context, 20, height);
+    const obstacle = new Sprite(gameArea.context, 500 , height);
     
     function updateGameArea() {
         gameArea.clear();
-        sprite.update();
+        player.update();
+        obstacle.update();
+        player.obstacles = obstacle;
     }
     document.addEventListener('keydown', typeLetter);
         
     function typeLetter(e) {
         if (e.key == "ArrowLeft" && !e.repeat) {
             // console.log("ArrowLeft");
-            sprite.movingLeft = true;
+            player.movingLeft = true;
         }
         if (e.key == "ArrowRight" && !e.repeat) {
             // console.log("ArrowRight");
-            sprite.movingRight = true;
+            player.movingRight = true;
         }
         if (e.key == " " && !e.repeat) {
             // console.log("Space");
-            sprite.jumping = true
+            player.jumping = true
             // sprite.jump();
         }
 
@@ -52,19 +54,21 @@ function main() {
     function releaseLetter(e) {
         if (e.key == "ArrowLeft") {
             // console.log("ArrowLeftxx");
-            sprite.movingLeft = false;
+            player.movingLeft = false;
         }
         if (e.key == "ArrowRight") {
             // console.log("ArrowRightxx");
-            sprite.movingRight = false;
+            player.movingRight = false;
         }
         if (e.key == " " && !e.repeat) {
             // console.log("Space");
-            sprite.jumping = false;
+            player.jumping = false;
 
         }
     }
-    sprite.init();
+    player.init();
+    obstacle.init();
+    
 
     
     
