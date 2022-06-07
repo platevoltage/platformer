@@ -1,0 +1,1 @@
+(()=>{"use strict";class t{constructor(t,o,n){this.x=o,this.y=n,this.ctx=t}}window.onload=function(){const o=document.querySelector("#glCanvas").getContext("2d"),n=new t(20,20);null!==o?console.log(n.x):alert("Unable to initialize WebGL. Your browser or machine may not support it.")}})();
