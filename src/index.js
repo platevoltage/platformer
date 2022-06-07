@@ -17,11 +17,24 @@ function main() {
 
     sprite.init();
 
-    setInterval(() => {
-        gameArea.clear();
-        sprite.moveLeft();
+    // setInterval(() => {
+    //     gameArea.clear();
+    //     sprite.moveLeft();
 
-    },100);
+    // },100);
+    document.addEventListener('keydown', typeLetter);
+    
+    function typeLetter(e) {
+        if (e.key == "ArrowLeft") {   
+            gameArea.clear();
+            sprite.moveLeft();          
+        }
+        if (e.key == "ArrowRight") {   
+            gameArea.clear();
+            sprite.moveRight();          
+        }
+
+    }
 }
 
 var gameArea = {
@@ -36,6 +49,8 @@ var gameArea = {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
+
+
 
 
 window.onload = main;

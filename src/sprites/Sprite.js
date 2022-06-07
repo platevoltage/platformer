@@ -17,11 +17,11 @@ export default class Sprite {
         // console.log(this.x);
     }
     moveLeft() {
-        this.x++;
+        this.x--;
         this.update();
     }
     moveRight() {
-        this.x--;
+        this.x++;
         this.update();
     }
 
