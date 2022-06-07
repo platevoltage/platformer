@@ -32,7 +32,6 @@ function main() {
     document.addEventListener('keydown', typeLetter);
         
     function typeLetter(e) {
-
         if (e.key == "ArrowLeft" && !e.repeat) {
             // console.log("ArrowLeft");
             sprite.movingLeft = true;
@@ -40,6 +39,10 @@ function main() {
         if (e.key == "ArrowRight" && !e.repeat) {
             // console.log("ArrowRight");
             sprite.movingRight = true;
+        }
+        if (e.key == " " && !e.repeat) {
+            // console.log("Space");
+            sprite.jump();
         }
 
     }
