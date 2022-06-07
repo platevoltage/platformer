@@ -8,7 +8,8 @@ export default class Sprite {
         this.y = y-this.height-this.float;
         this.movingLeft = false;
         this.movingRight = false;
-        this.xVelocity = 0;
+        this.xLeftVelocity = 0;
+        this.xRightVelocity = 0;
         this.yVelocity = 0;
     }
     init() { 
@@ -22,20 +23,24 @@ export default class Sprite {
         if (this.float > 0) {
             this.yVelocity++;
             this.float-=this.yVelocity;
-        } else {
+        } 
+        else {
             this.yVelocity = 0;
         }
-        if(this.movingLeft) {
+        if (this.movingLeft) {
             this.moveLeft();
-            this.xVelocity++;
+            if (this.xLeftVelocity < 10) this.xLeftVelocity++;
         }
-        else if(this.movingRight) {
+        else if (this.xLeftVelocity > 1) {
+            this.xLeftVelocity--;
+        }
+        if (this.movingRight) {
             this.moveRight();
-            this.xVelocity++;
+            if (this.xRightVelocity < 10) this.xRightVelocity++;
          
         }
-        else if (this.velocity > 1) {
-            this.xVelocity--;
+        else if (this.xRightVelocity > 1) {
+            this.xRightVelocity--;
         }
         this.ctx.fillStyle = "#FF0000";
         this.ctx.fillRect(
@@ -47,17 +52,16 @@ export default class Sprite {
         
     }
     moveLeft() {
-        console.log(this.xVelocity);
-        this.x-=this.xVelocity;
+        this.x-=this.xLeftVelocity;
     }
     moveRight() {
-        this.x+=this.xVelocity;
+        this.x+=this.xRightVelocity;
     }
     jump() {
-        this.float = 200;
-        this.yVelocity = 0;
-        console.log(this.float);
-
+        if (this.float <= 0) {
+            this.float = 200;
+            this.yVelocity = 0;
+        }
     }
     
 
