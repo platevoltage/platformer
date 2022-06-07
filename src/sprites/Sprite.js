@@ -77,10 +77,18 @@ export default class Sprite {
         
     }
     moveLeft() {
-        this.x-=this.xLeftVelocity;
+        console.log(this.obstacles.y, this.y-this.float);
+        if (
+            this.obstacles.x+this.obstacles.width < this.x ||
+            this.obstacles.y-this.obstacles.height > this.y-this.float ||
+            this.x < this.obstacles.x
+        ) {
+
+            this.x-=this.xLeftVelocity;
+        }
     }
     moveRight() {
-        console.log(this.obstacles.y, this.y-this.float);
+        // console.log(this.obstacles.y, this.y-this.float);
         if (
             this.obstacles.x-this.obstacles.width > this.x || 
             this.obstacles.y-this.obstacles.height > this.y-this.float ||
