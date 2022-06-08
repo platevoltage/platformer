@@ -22,8 +22,8 @@ function main() {
     }
     
     gameArea.start();
-    const player = new Sprite(gameArea.context, 20, height);
-    const obstacle = new Sprite(gameArea.context, 500 , height);
+    const player = new Sprite(gameArea.context, "player" ,20, height);
+    const obstacle = new Sprite(gameArea.context, "wall" , 500 , height);
     
     function updateGameArea() {
         gameArea.clear();
