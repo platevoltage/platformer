@@ -22,14 +22,16 @@ function main() {
     }
     
     gameArea.start();
-    const player = new Sprite(gameArea.context, "player" ,20, height);
+    const player = new Sprite(gameArea.context, "player" , 20, height);
     const obstacle = new Sprite(gameArea.context, "wall" , 500 , height);
+    const obstacle2 = new Sprite(gameArea.context, "wall" , 300 , height);
     
     function updateGameArea() {
         gameArea.clear();
         player.update();
         obstacle.update();
-        player.obstacles = obstacle;
+        obstacle2.update();
+        player.obstacles = [ obstacle, obstacle2 ];
     }
     document.addEventListener('keydown', typeLetter);
         
@@ -68,6 +70,7 @@ function main() {
     }
     player.init();
     obstacle.init();
+    obstacle2.init();
     
 
     
