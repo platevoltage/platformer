@@ -26,7 +26,7 @@ export default class MovableSprite extends Sprite {
             this.fall();
         }
         //moving left
-        if (this.movingLeft && !this.crouching) {
+        if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveLeft();
             if (this.xLeftVelocity < 20) this.xLeftVelocity++;
 
@@ -36,7 +36,7 @@ export default class MovableSprite extends Sprite {
             this.xLeftVelocity--;
         }
         //moving right
-        if (this.movingRight && !this.crouching) {
+        if (this.movingRight && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveRight();
             if (this.xRightVelocity < 20) this.xRightVelocity++;      
         }

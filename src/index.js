@@ -25,7 +25,7 @@ function main() {
     
     gameArea.start();
     const player = new Player(gameArea.context, 20, height);
-    // const obstacle = new Sprite(gameArea.context, 500, height);
+    const obstacle = new Floor(gameArea.context, 200, height-130, 200);
     const obstacle2 = new Floor(gameArea.context, 600, height-130, 200);
 
     document.addEventListener('keydown', typeLetter);
@@ -33,10 +33,10 @@ function main() {
     
     function updateGameArea() {
         gameArea.clear();
-        player.update();
-        // obstacle.update();
+        obstacle.update();
         obstacle2.update();
-        player.obstacles = [ obstacle2 ];
+        player.update();
+        player.obstacles = [ obstacle, obstacle2 ];
     }
         
     function typeLetter(e) {
