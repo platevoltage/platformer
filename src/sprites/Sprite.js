@@ -8,6 +8,7 @@ export default class Sprite {
         this.movingLeft = false;
         this.movingRight = false;
         this.jumping = false;
+        this.crouching = false;
         this.xLeftVelocity = 0;
         this.xRightVelocity = 0;
         this.yUpVelocity = 0;
@@ -63,6 +64,13 @@ export default class Sprite {
         else if (this.xRightVelocity > 0) {
             this.moveRight();
             this.xRightVelocity--;
+        }
+        //crouching
+        if (this.crouching) {
+            this.height = 50;
+        }
+        else {
+            this.height = 100;
         }        
         //render
         this.ctx.fillStyle = this.color;
@@ -75,32 +83,32 @@ export default class Sprite {
         
     }
     moveLeft() {
-        for (let i in this.obstacles) {
+        for (let obstacle of this.obstacles) {
             if (
-                this.obstacles[i].x+this.obstacles[i].width < this.x ||
-                this.obstacles[i].y-this.obstacles[i].height > this.y ||
-                this.x < this.obstacles[i].x
+                obstacle.x+obstacle.width < this.x ||
+                obstacle.y-obstacle.height > this.y ||
+                this.x < obstacle.x
             ) {
 
                 this.x-=this.xLeftVelocity;
             } else {
-                this.x = this.obstacles[i].x+this.obstacles[i].width+1;
+                this.x = obstacle.x+obstacle.width;
                 this.xLeftVelocity = 0;
             }
         }
     }
     moveRight() {
-        for (let i in this.obstacles) {
+        for (let obstacle of this.obstacles) {
 
             if (
-                this.obstacles[i].x-this.obstacles[i].width > this.x+10 || 
-                this.obstacles[i].y-this.obstacles[i].height > this.y ||
-                this.x > this.obstacles[i].x
+                obstacle.x-obstacle.width > this.x+10 || 
+                obstacle.y-obstacle.height > this.y ||
+                this.x > obstacle.x
             ) {
                     
                 this.x+=this.xRightVelocity;
             } else {
-                this.x = this.obstacles[i].x-this.width-1;
+                this.x = obstacle.x-this.width-1;
                 this.xRightVelocity = 0;
             }
                 
@@ -110,9 +118,10 @@ export default class Sprite {
     jump() {
         this.jumping = false;
         this.yUpVelocity = 30;
+        console.log("floor", 480, "wall-1", this.obstacles[0]?.height, "wall-2", this.obstacles[1]?.height);
     }
-    fall() {
-
+    fall () {
+        
         if (
             this.y >= this.ctx.canvas.attributes.height.textContent-1 ||
             (

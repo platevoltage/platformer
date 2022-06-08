@@ -44,6 +44,10 @@ function main() {
             // console.log("ArrowRight");
             player.movingRight = true;
         }
+        if (e.key == "ArrowDown" && !e.repeat) {
+            // console.log("ArrowRight");
+            player.crouching = true;
+        }
         if (e.key == " " && !e.repeat) {
             // console.log("Space");
             player.jumping = true
@@ -61,6 +65,9 @@ function main() {
         if (e.key == "ArrowRight") {
             // console.log("ArrowRightxx");
             player.movingRight = false;
+        }
+        if (e.key == "ArrowDown" && !e.repeat) {
+            player.crouching = false;
         }
         if (e.key == " " && !e.repeat) {
             // console.log("Space");
