@@ -60,6 +60,7 @@ export default class MovableSprite extends Sprite {
             if (
                 obstacle.x+obstacle.width < this.x ||
                 obstacle.y-obstacle.height > this.y ||
+                this.y-this.height > obstacle.y ||
                 this.x < obstacle.x
             ) {
 
@@ -76,6 +77,7 @@ export default class MovableSprite extends Sprite {
             if (
                 obstacle.x-this.width > this.x || 
                 obstacle.y-obstacle.height > this.y ||
+                this.y-this.height > obstacle.y ||
                 this.x > obstacle.x
             ) {
                     

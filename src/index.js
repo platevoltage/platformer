@@ -26,7 +26,7 @@ function main() {
     gameArea.start();
     const player = new Player(gameArea.context, 20, height);
     // const obstacle = new Sprite(gameArea.context, 500, height);
-    const obstacle2 = new Floor(gameArea.context, 600, height-100, 200);
+    const obstacle2 = new Floor(gameArea.context, 600, height-130, 200);
 
     document.addEventListener('keydown', typeLetter);
     document.addEventListener('keyup', releaseLetter);
