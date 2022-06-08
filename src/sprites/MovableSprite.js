@@ -26,7 +26,7 @@ export default class MovableSprite extends Sprite {
             this.fall();
         }
         //moving left
-        if (this.movingLeft) {
+        if (this.movingLeft && !this.crouching) {
             this.moveLeft();
             if (this.xLeftVelocity < 20) this.xLeftVelocity++;
 
@@ -36,7 +36,7 @@ export default class MovableSprite extends Sprite {
             this.xLeftVelocity--;
         }
         //moving right
-        if (this.movingRight) {
+        if (this.movingRight && !this.crouching) {
             this.moveRight();
             if (this.xRightVelocity < 20) this.xRightVelocity++;      
         }
@@ -52,13 +52,7 @@ export default class MovableSprite extends Sprite {
             this.height = 100;
         }        
         //render
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(
-            this.x,
-            this.y-this.height,
-            this.width,
-            this.height
-        );
+        this.render();
         
     }
     moveLeft() {
