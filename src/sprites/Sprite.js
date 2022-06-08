@@ -37,16 +37,19 @@ export default class Sprite {
     }
     update() {
         //falling
-        if (this.float > 0) {
-            this.yDownVelocity++;
-            this.float-=this.yDownVelocity;
-        } 
-        else {
-            this.yDownVelocity = 0;
-            this.float= 0;
-        }
+        // if (this.float > 0) {
+        //     this.yDownVelocity++;
+        //     this.float-=this.yDownVelocity;
+        // } 
+        // else {
+        //     this.yDownVelocity = 0;
+        //     this.float= 0;
+        // }
         //jumping
-        if (this.jumping) {
+        this.y-=this.yUpVelocity;
+        console.log(this.yUpVelocity);
+        if(this.yUpVelocity > 0) this.yUpVelocity--;
+        if (this.jumping && this.yDownVelocity <= 0) {
             this.jump();
         }
         else {
@@ -124,7 +127,9 @@ export default class Sprite {
         
     }
     jump() {
-        this.y -= 10;
+        // this.y -= 300;
+        this.jumping = false;
+        this.yUpVelocity = 30;
         // if (this.float <= 0) {
         //     this.yDownVelocity = 0;
         //     this.yUpVelocity = 10;
@@ -140,10 +145,14 @@ export default class Sprite {
                 this.x < this.obstacles?.x+this.obstacles?.width
             )
         ) {
-
+            // console.log(this.yDownVelocity);
+            if (this.yDownVelocity>1) this.y-=this.yDownVelocity;
+            this.yDownVelocity = 0;
+            
         } 
         else {
-            this.y+=1;
+            if (this.yDownVelocity < 20) this.yDownVelocity+=1;
+            this.y+=this.yDownVelocity;
         }
         // if (
         //     // this.y < this.obstacles?.y-this.obstacles?.height &&
