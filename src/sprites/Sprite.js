@@ -16,7 +16,6 @@ export default class Sprite {
         this.jumpTime = 0;
         this.obstacles = [];
         this.color;
-        console.log(this.ctx.canvas.attributes.height.textContent);
         switch (type) {
             case "player" : {
                 this.color = "#ff0000";
@@ -31,9 +30,7 @@ export default class Sprite {
     init() { 
         console.log("new sprite");
         this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x,this.y,this.width,this.height);
-        
-        
+        this.ctx.fillRect(this.x,this.y,this.width,this.height); 
     }
     update() {
 
@@ -118,18 +115,20 @@ export default class Sprite {
     jump() {
         this.jumping = false;
         this.yUpVelocity = 30;
-        console.log("floor", 480, "wall-1", this.obstacles[0]?.height, "wall-2", this.obstacles[1]?.height);
     }
-    fall () {
-        
-        if (
-            this.y >= this.ctx.canvas.attributes.height.textContent-1 ||
-            (
-                this.y >= this.obstacles[0]?.y-this.obstacles[0]?.height-1 && 
-                this.x+this.width >= this.obstacles[0]?.x && 
-                this.x < this.obstacles[0]?.x+this.obstacles[0]?.width
+    fall() {
+        //create surfaces array with floor in index 0
+        let surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
+        //check every obstacle for top surfaces and push into surfaces array
+        for (let obstacle of this.obstacles) {
+            surfaces.push( 
+                this.y >= obstacle.y-obstacle.height-1 && 
+                this.x+this.width >= obstacle.x && 
+                this.x < obstacle.x+obstacle.width
             )
-        ) {
+        }
+        //if any element in surfaces is true
+        if ( surfaces.some( (surface) => surface ) ) {
             if (this.yDownVelocity>1) this.y-=this.yDownVelocity;
             this.yDownVelocity = 0;
             
