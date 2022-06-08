@@ -1,4 +1,6 @@
 import Sprite from "./sprites/Sprite";
+import StationarySprite from "./sprites/StationarySprite";
+import Player from "./sprites/Player";
 
 const width = 1000;
 const height = 480;
@@ -22,9 +24,12 @@ function main() {
     }
     
     gameArea.start();
-    const player = new Sprite(gameArea.context, "player" , 20, height);
-    const obstacle = new Sprite(gameArea.context, "wall" , 500 , height);
-    const obstacle2 = new Sprite(gameArea.context, "wall" , 300 , height);
+    const player = new Player(gameArea.context, 20, height);
+    const obstacle = new Sprite(gameArea.context, 500, height);
+    const obstacle2 = new StationarySprite(gameArea.context, 300, height-100);
+
+    document.addEventListener('keydown', typeLetter);
+    document.addEventListener('keyup', releaseLetter);
     
     function updateGameArea() {
         gameArea.clear();
@@ -33,44 +38,34 @@ function main() {
         obstacle2.update();
         player.obstacles = [ obstacle, obstacle2 ];
     }
-    document.addEventListener('keydown', typeLetter);
         
     function typeLetter(e) {
         if (e.key == "ArrowLeft" && !e.repeat) {
-            // console.log("ArrowLeft");
             player.movingLeft = true;
         }
         if (e.key == "ArrowRight" && !e.repeat) {
-            // console.log("ArrowRight");
             player.movingRight = true;
         }
         if (e.key == "ArrowDown" && !e.repeat) {
-            // console.log("ArrowRight");
             player.crouching = true;
         }
         if (e.key == " " && !e.repeat) {
-            // console.log("Space");
             player.jumping = true
-            // sprite.jump();
         }
 
     }
 
-    document.addEventListener('keyup', releaseLetter);
     function releaseLetter(e) {
         if (e.key == "ArrowLeft") {
-            // console.log("ArrowLeftxx");
             player.movingLeft = false;
         }
         if (e.key == "ArrowRight") {
-            // console.log("ArrowRightxx");
             player.movingRight = false;
         }
         if (e.key == "ArrowDown" && !e.repeat) {
             player.crouching = false;
         }
         if (e.key == " " && !e.repeat) {
-            // console.log("Space");
             player.jumping = false;
 
         }
