@@ -74,7 +74,7 @@ export default class MovableSprite extends Sprite {
         for (let obstacle of this.obstacles) {
 
             if (
-                obstacle.x-obstacle.width > this.x+10 || 
+                obstacle.x-this.width > this.x || 
                 obstacle.y-obstacle.height > this.y ||
                 this.x > obstacle.x
             ) {

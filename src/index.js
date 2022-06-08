@@ -1,5 +1,5 @@
 import Sprite from "./sprites/Sprite";
-import StationarySprite from "./sprites/StationarySprite";
+import Floor from "./sprites/Floor";
 import Player from "./sprites/Player";
 
 const width = 1000;
@@ -25,8 +25,8 @@ function main() {
     
     gameArea.start();
     const player = new Player(gameArea.context, 20, height);
-    const obstacle = new Sprite(gameArea.context, 500, height);
-    const obstacle2 = new StationarySprite(gameArea.context, 300, height-100);
+    // const obstacle = new Sprite(gameArea.context, 500, height);
+    const obstacle2 = new Floor(gameArea.context, 600, height-100, 200);
 
     document.addEventListener('keydown', typeLetter);
     document.addEventListener('keyup', releaseLetter);
@@ -34,9 +34,9 @@ function main() {
     function updateGameArea() {
         gameArea.clear();
         player.update();
-        obstacle.update();
+        // obstacle.update();
         obstacle2.update();
-        player.obstacles = [ obstacle, obstacle2 ];
+        player.obstacles = [ obstacle2 ];
     }
         
     function typeLetter(e) {
