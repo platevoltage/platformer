@@ -1,10 +1,9 @@
-import Sprite from "./sprites/Sprite";
+
 import Floor from "./sprites/Floor";
 import Player from "./sprites/Player";
 
-const width = 1000;
-const height = 480;
-
+const canvasWidth = 1000;
+const canvasHeight = 480;
 
 
 
@@ -12,8 +11,8 @@ function main() {
     var gameArea = {
         canvas : document.createElement("canvas"),
         start : function() {
-            this.canvas.width = width;
-            this.canvas.height = height;
+            this.canvas.width = canvasWidth;
+            this.canvas.height = canvasHeight;
             this.context = this.canvas.getContext("2d");
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
             this.interval = setInterval(updateGameArea, 20);
@@ -24,19 +23,25 @@ function main() {
     }
     
     gameArea.start();
-    const player = new Player(gameArea.context, 20, height);
-    const obstacle = new Floor(gameArea.context, 200, height-130, 200);
-    const obstacle2 = new Floor(gameArea.context, 600, height-130, 200);
+    const obstacles = [];
+    let player;
+    createPlayer();
+    createFloor(200, 130, 200);
+    createFloor(600, 130, 200);
+
+
 
     document.addEventListener('keydown', typeLetter);
     document.addEventListener('keyup', releaseLetter);
     
     function updateGameArea() {
         gameArea.clear();
-        obstacle.update();
-        obstacle2.update();
+
+        for (let obstacle of obstacles) {
+            obstacle.update();
+        }
         player.update();
-        player.obstacles = [ obstacle, obstacle2 ];
+        player.obstacles = obstacles;
     }
         
     function typeLetter(e) {
@@ -70,14 +75,22 @@ function main() {
 
         }
     }
-    player.init();
-    obstacle.init();
-    obstacle2.init();
+
+
+
     
 
     
     
+    function createFloor(x,y,width) {
+        const floor = new Floor(gameArea.context, x, canvasHeight-y, width)
+        obstacles.push(floor);
+        floor.init();
+    }
+    function createPlayer() {
+        player = new Player(gameArea.context, 20, canvasHeight);
+        player.init();
+    }
 }
-
 
 window.onload = main;
