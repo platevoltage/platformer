@@ -57,7 +57,7 @@ export default class MovableSprite extends Sprite {
         //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveLeft();
-            if (this.xLeftVelocity < 20) this.xLeftVelocity+=.3;
+            if (this.xLeftVelocity < 10) this.xLeftVelocity+=.3;
 
         }
         else if (this.xLeftVelocity > 0) {
@@ -68,7 +68,7 @@ export default class MovableSprite extends Sprite {
         //moving right
         if (this.movingRight && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveRight();
-            if (this.xRightVelocity < 20) this.xRightVelocity+=.3;      
+            if (this.xRightVelocity < 10) this.xRightVelocity+=.3;      
         }
         else if (this.xRightVelocity > 0) {
             this.moveRight();
@@ -78,15 +78,21 @@ export default class MovableSprite extends Sprite {
         else this.xRightVelocity=0;
         //crouching
         if (this.crouching) {
-            this.height = 50;
+            this.crouch();
         }
         else {
-            this.height = 100;
+            this.standUp();
         }        
         //render
         // this.displayStats();
         this.render();
         
+    }
+    crouch() {
+        this.height = 50; 
+    }
+    standUp() {
+        this.height = 100;
     }
     moveLeft() {
         for (let obstacle of this.obstacles) {

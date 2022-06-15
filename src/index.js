@@ -2,6 +2,7 @@
 import Floor from "./sprites/Floor";
 import FloorWithBottom from "./sprites/FloorWithBottom";
 import Player from "./sprites/Player";
+import Enemy from "./sprites/Enemy";
 
 const canvasWidth = 1000;
 const canvasHeight = 480;
@@ -25,6 +26,7 @@ function main() {
     
     gameArea.start();
     const obstacles = [];
+    const enemies = [];
     let player;
     let jumpPressed = false;
     let jumpDuration = 0;
@@ -32,9 +34,12 @@ function main() {
     createFloor(-100, 20, 6000);
     createPlayer();
 
-    createFloorWithBottom(200, 90, 100);
-    createFloorWithBottom(500, 223, 100);
+    createFloorWithBottom(200, 190, 100);
+    // createFloorWithBottom(500, 223, 100);
     createFloor(700, 223, 100);
+    createEnemy(800, 430);
+    createEnemy(900, 430);
+    createEnemy(970, 430);
 
 
 
@@ -44,7 +49,11 @@ function main() {
         gameArea.clear();
 
         for (let obstacle of obstacles) {
-            obstacle.update(100);
+            obstacle.update(0);
+        }
+        for (let enemy of enemies) {
+            enemy.update(0);
+            enemy.obstacles = [...obstacles, player];
         }
         if (jumpPressed) {
             jumpDuration++;
@@ -52,8 +61,8 @@ function main() {
         if (jumpDuration == 5) {
             player.longJumping = true;
         }
-        player.update(20);
-        player.obstacles = obstacles;
+        player.update(0);
+        player.obstacles = [...obstacles, ...enemies];
     }
         
     function typeLetter(e) {
@@ -108,6 +117,10 @@ function main() {
     }
     function createPlayer() {
         player = new Player(gameArea.context, 20, canvasHeight-21);
+    }
+    function createEnemy(x,y) {
+        const enemy = new Enemy(gameArea.context, x, y);
+        enemies.push(enemy);
     }
 }
 
