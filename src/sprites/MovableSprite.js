@@ -133,8 +133,13 @@ export default class MovableSprite extends Sprite {
         }
                 
     }
+    bounce() {
+        this.yUpVelocity = 26;
+        this.standing = false;  
+    }
+
     shortJump() {
-        this.yUpVelocity += 20;
+        this.yUpVelocity = 20;
         this.standing = false;      
     }
     
@@ -158,7 +163,10 @@ export default class MovableSprite extends Sprite {
                     this.y < obstacle.y;
 
                 surfaces.push(isObstacleUnderneath);
-                if (isObstacleUnderneath) obstacle.isDead = true; 
+                if (isObstacleUnderneath && obstacle.isKillable) {
+                    obstacle.isDead = true;
+                    this.bounce();
+                }
             }
             //if play is hitting any surface, return true
             return surfaces.some( (surface) => surface );

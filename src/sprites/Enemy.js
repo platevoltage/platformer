@@ -9,6 +9,7 @@ export default class Enemy extends MovableSprite {
         this.movingLeft = true;
         this.xLeftVelocity = 1;
         this.xRightVelocity = 1;
+        this.isKillable = true;
         this.isDead = false;
 
     }
@@ -19,13 +20,14 @@ export default class Enemy extends MovableSprite {
         this.xScrollOffset = xScrollOffset;
 
         if (this.isDead) {
-            this.y = -100;
+            this.y+=10;
+            this.color = "#555555";
             this.movingRight = false;
             this.movingLeft = false;
         }
 
         //falling
-        if ( !this.checkObstacleSurfaces() ) {
+        else if ( !this.checkObstacleSurfaces() ) {
             this.standing = false;
             this.moveDown();
         }
