@@ -6,6 +6,7 @@ export default class MovableSprite extends Sprite {
         this.movingLeft = false;
         this.movingRight = false;
         this.jumping = false;
+        this.standing = true;
         this.crouching = false;
         this.xLeftVelocity = 0;
         this.xRightVelocity = 0;
@@ -19,13 +20,16 @@ export default class MovableSprite extends Sprite {
         //jumping
         this.y-=this.yUpVelocity;
         if (this.yUpVelocity > 0) this.yUpVelocity--;
-        if (this.jumping) {
+        if (this.jumping && this.standing) {
             this.jump();
         }
         //falling
         else if (this.yUpVelocity == 0 && this.yDownVelocity >= 0) {
             if ( !this.checkObstacleSurfaces() ) this.moveDown();
-            else this.yDownVelocity = 0;
+            else { 
+                this.yDownVelocity = 0;
+                this.standing = true;
+            }
         }
         //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
@@ -96,6 +100,7 @@ export default class MovableSprite extends Sprite {
     }
     jump() {
         this.jumping = false;
+        this.standing = false;
         this.yUpVelocity = 20;
     }
     checkObstacleSurfaces() {
