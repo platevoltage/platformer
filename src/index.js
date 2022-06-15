@@ -37,9 +37,9 @@ function main() {
     createFloorWithBottom(200, 190, 100);
     // createFloorWithBottom(500, 223, 100);
     createFloor(700, 223, 100);
-    createEnemy(800, 430);
-    createEnemy(900, 430);
-    createEnemy(970, 430);
+    createEnemy(800, 430, 0);
+    createEnemy(900, 430, 1);
+    createEnemy(970, 430, 2);
 
 
 
@@ -53,7 +53,7 @@ function main() {
         }
         for (let enemy of enemies) {
             enemy.update(0);
-            enemy.obstacles = [...obstacles, player];
+            enemy.obstacles = [...obstacles, ...enemies, player];
         }
         if (jumpPressed) {
             jumpDuration++;
@@ -118,8 +118,8 @@ function main() {
     function createPlayer() {
         player = new Player(gameArea.context, 20, canvasHeight-21);
     }
-    function createEnemy(x,y) {
-        const enemy = new Enemy(gameArea.context, x, y);
+    function createEnemy(x,y, id) {
+        const enemy = new Enemy(gameArea.context, x, y, id);
         enemies.push(enemy);
     }
 }

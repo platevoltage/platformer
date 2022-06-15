@@ -1,8 +1,9 @@
 import MovableSprite from "./MovableSprite";
 
 export default class Enemy extends MovableSprite {
-    constructor(ctx,x,y) {
+    constructor(ctx,x,y,id) {
         super(ctx,x,y);
+        this.id = id;
         this.color = "#ff0044";
         this.movingRight = false;
         this.movingLeft = true;
@@ -52,7 +53,8 @@ export default class Enemy extends MovableSprite {
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
                 this.x+this.xScrollOffset < obstacle.x+obstacle.xScrollOffset ||
-                obstacle.height <= 1 
+                obstacle.height <= 1 ||
+                obstacle.id == this.id
             ) {
 
                 this.x-=Math.floor(this.xLeftVelocity);
@@ -73,7 +75,8 @@ export default class Enemy extends MovableSprite {
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
                 this.x+this.xScrollOffset > obstacle.x+obstacle.xScrollOffset ||
-                obstacle.height <= 1
+                obstacle.height <= 1 ||
+                obstacle.id == this.id
             ) {
                     
                 this.x+=Math.floor(this.xRightVelocity);
