@@ -16,7 +16,7 @@ export default class MovableSprite extends Sprite {
         this.obstacles = [];
     }
     update() {
-
+        this.ctx.fillText(this.xRightVelocity, 800, 100);
         //jumping
         this.y-=this.yUpVelocity;
         if (this.yUpVelocity > 0) this.yUpVelocity--;
@@ -34,22 +34,25 @@ export default class MovableSprite extends Sprite {
         //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveLeft();
-            if (this.xLeftVelocity < 20) this.xLeftVelocity++;
+            if (this.xLeftVelocity < 20) this.xLeftVelocity+=.3;
 
         }
         else if (this.xLeftVelocity > 0) {
             this.moveLeft();
             this.xLeftVelocity--;
         }
+        else this.xLeftVelocity = 0;
         //moving right
         if (this.movingRight && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveRight();
-            if (this.xRightVelocity < 20) this.xRightVelocity++;      
+            if (this.xRightVelocity < 20) this.xRightVelocity+=.3;      
         }
         else if (this.xRightVelocity > 0) {
             this.moveRight();
+            
             this.xRightVelocity--;
         }
+        else this.xRightVelocity=0;
         //crouching
         if (this.crouching) {
             this.height = 50;
@@ -71,7 +74,7 @@ export default class MovableSprite extends Sprite {
                 this.x < obstacle.x
             ) {
 
-                this.x-=this.xLeftVelocity;
+                this.x-=Math.floor(this.xLeftVelocity);
             } else {
                 this.x = obstacle.x+obstacle.width;
                 this.xLeftVelocity = 0;
@@ -89,7 +92,7 @@ export default class MovableSprite extends Sprite {
                 this.x > obstacle.x
             ) {
                     
-                this.x+=this.xRightVelocity;
+                this.x+=Math.floor(this.xRightVelocity);
             } else {
                 this.x = obstacle.x-this.width-1;
                 this.xRightVelocity = 0;
