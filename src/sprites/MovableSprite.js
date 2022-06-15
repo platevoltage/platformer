@@ -18,11 +18,11 @@ export default class MovableSprite extends Sprite {
 
         //jumping
         this.y-=this.yUpVelocity;
-        if(this.yUpVelocity > 0) this.yUpVelocity--;
-        if (this.jumping && this.yDownVelocity <= 0) {
+        if (this.yUpVelocity > 0) this.yUpVelocity--;
+        if (this.jumping) {
             this.jump();
         }
-        else {
+        else if (this.yUpVelocity == 0 && this.yDownVelocity >= 0) {
             this.fall();
         }
         //moving left
@@ -52,6 +52,7 @@ export default class MovableSprite extends Sprite {
             this.height = 100;
         }        
         //render
+        this.displayStats();
         this.render();
         
     }
@@ -72,6 +73,7 @@ export default class MovableSprite extends Sprite {
         }
     }
     moveRight() {
+
         for (let obstacle of this.obstacles) {
 
             if (
@@ -96,7 +98,7 @@ export default class MovableSprite extends Sprite {
     }
     fall() {
         //create surfaces array with floor in index 0
-        let surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
+        const surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
         //check every obstacle for top surfaces and push into surfaces array
         for (let obstacle of this.obstacles) {
             surfaces.push( 
@@ -105,16 +107,39 @@ export default class MovableSprite extends Sprite {
                 this.x < obstacle.x+obstacle.width
             )
         }
-        //if any element in surfaces is true
+        //if any element in surfaces is true, the sprite doesnt fall
         if ( surfaces.some( (surface) => surface ) ) {
             if (this.yDownVelocity>1) this.y-=this.yDownVelocity;
-            this.yDownVelocity = 0;
+            this.yDownVelocity=0 ;
+            
+            
             
         } 
         else {
-            if (this.yDownVelocity < 20) this.yDownVelocity+=1;
-            this.y+=this.yDownVelocity;
+            this.yDownVelocity+=1;
+            for (let i=0; i < this.yDownVelocity; i++) {
+                this.y++;
+
+            }
+
+            
+        }
+        console.log(this.yUpVelocity, this.yDownVelocity);
+    }
+    displayStats() {
+        this.ctx.fillStyle = this.color;
+        this.ctx.font = "30px Arial";
+
+        //render stats for player
+        this.ctx.fillText(`(x) ${this.x} - ${this.x + this.width} (y) ${this.y} - ${this.y - this.height}`, 10,30);
+
+        //render stats for obstacles
+        let spacing = 0;
+        for (let obstacle of this.obstacles) {
+            this.ctx.fillStyle = obstacle.color;
+            this.ctx.fillText(`(x) ${obstacle.x} - ${obstacle.x + obstacle.width} (y) ${obstacle.y} - ${obstacle.y - obstacle.height}`, 10,60+spacing);
+            spacing+=30;
         }
     }
-
+        
 }
