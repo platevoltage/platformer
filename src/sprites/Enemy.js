@@ -9,6 +9,7 @@ export default class Enemy extends MovableSprite {
         this.movingLeft = true;
         this.xLeftVelocity = 1;
         this.xRightVelocity = 1;
+        this.isDead = false;
 
     }
     standUp() {
@@ -16,6 +17,12 @@ export default class Enemy extends MovableSprite {
     }
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
+
+        if (this.isDead) {
+            this.y = -100;
+            this.movingRight = false;
+            this.movingLeft = false;
+        }
 
         //falling
         if ( !this.checkObstacleSurfaces() ) {

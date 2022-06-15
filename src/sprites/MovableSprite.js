@@ -14,10 +14,11 @@ export default class MovableSprite extends Sprite {
         this.yUpVelocity = 0;
         this.yDownVelocity = 0;
         this.obstacles = [];
+        this.objectStandingOn = "none";
     } 
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
-        // this.ctx.fillText(this.checkObstacleCeilings(), 840, 100);
+        // this.ctx.fillText(this.objectStandingOn, 840, 100);
         // this.ctx.fillText(this.standing, 860, 100);
         // this.ctx.fillText(this.shortJumping, 930, 100);
         // this.ctx.fillText(this.longJumping, 930, 130);
@@ -157,6 +158,7 @@ export default class MovableSprite extends Sprite {
                     this.y < obstacle.y;
 
                 surfaces.push(isObstacleUnderneath);
+                if (isObstacleUnderneath) obstacle.isDead = true; 
             }
             //if play is hitting any surface, return true
             return surfaces.some( (surface) => surface );

@@ -18,6 +18,7 @@ function main() {
             this.context = this.canvas.getContext("2d");
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
             this.interval = setInterval(updateGameArea, 20);
+            this.garbageCollectionInterval = setInterval(clearUnusedEnemies, 5000);
         },
         clear : function() {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -26,16 +27,16 @@ function main() {
     
     gameArea.start();
     const obstacles = [];
-    const enemies = [];
+    let enemies = [];
     let player;
     let jumpPressed = false;
     let jumpDuration = 0;
 
     createFloor(-100, 20, 6000);
     createPlayer();
-
+    createFloorWithBottom(-100, 40, 100);
     createFloorWithBottom(200, 190, 100);
-    // createFloorWithBottom(500, 223, 100);
+    createFloorWithBottom(1000, 40, 100);
     createFloor(700, 223, 100);
     createEnemy(800, 430, 0);
     createEnemy(900, 430, 1);
@@ -122,6 +123,11 @@ function main() {
         const enemy = new Enemy(gameArea.context, x, y, id);
         enemies.push(enemy);
     }
+    function clearUnusedEnemies() {
+        enemies = enemies.filter(enemy => !enemy.isDead);
+    }
 }
+
+
 
 window.onload = main;
