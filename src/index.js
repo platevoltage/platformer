@@ -25,20 +25,29 @@ function main() {
     gameArea.start();
     const obstacles = [];
     let player;
+    let jumpPressed = false;
+    let jumpDuration = 0;
+    
     createPlayer();
-    createFloor(200, 70, 200);
-    createFloor(500, 152, 200);
+    createFloor(200, 70, 100);
+    createFloor(500, 152, 100);
+    createFloor(700, 203, 100);
 
 
 
     document.addEventListener('keydown', typeLetter);
     document.addEventListener('keyup', releaseLetter);
-    
     function updateGameArea() {
         gameArea.clear();
 
         for (let obstacle of obstacles) {
             obstacle.update();
+        }
+        if (jumpPressed) {
+            jumpDuration++;
+        }
+        if (jumpDuration == 5) {
+            player.longJumping = true;
         }
         player.update();
         player.obstacles = obstacles;
@@ -55,7 +64,8 @@ function main() {
             player.crouching = true;
         }
         if (e.key == " " && !e.repeat) {
-            player.jumping = true
+            jumpPressed = true;
+            player.shortJumping = true;
         }
 
     }
@@ -71,7 +81,10 @@ function main() {
             player.crouching = false;
         }
         if (e.key == " " && !e.repeat) {
-            player.jumping = false;
+            jumpPressed = false;
+            jumpDuration = 0;
+            player.shortJumping = false;
+            player.longJumping = false;
 
         }
     }
@@ -89,7 +102,7 @@ function main() {
     }
     function createPlayer() {
         player = new Player(gameArea.context, 20, canvasHeight);
-        player.init();
+        // player.init();
     }
 }
 

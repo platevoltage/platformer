@@ -5,27 +5,39 @@ export default class MovableSprite extends Sprite {
         super(ctx, x, y);
         this.movingLeft = false;
         this.movingRight = false;
-        this.jumping = false;
+        this.shortJumping = false;
+        this.longJumping = false;
         this.standing = true;
         this.crouching = false;
         this.xLeftVelocity = 0;
         this.xRightVelocity = 0;
         this.yUpVelocity = 0;
         this.yDownVelocity = 0;
-        this.jumpTime = 0;
         this.obstacles = [];
-    }
+    } 
     update() {
-        this.ctx.fillText(this.standing, 800, 100);
+
+        this.ctx.fillText(this.yUpVelocity, 840, 100);
+        this.ctx.fillText(this.standing, 860, 100);
+        this.ctx.fillText(this.shortJumping, 930, 100);
+        this.ctx.fillText(this.longJumping, 930, 130);
         //jumping
         this.y-=this.yUpVelocity;
         if (this.yUpVelocity > 0) this.yUpVelocity--;
-        if (this.jumping && this.standing) {
-            this.jump();
+
+        if (this.shortJumping && this.standing) {
+            this.shortJump();   
+        }
+        else if (this.longJumping && this.shortJumping) {
+            this.fullJump();
         }
         //falling
-        else if (this.yUpVelocity == 0) {
-            if ( !this.checkObstacleSurfaces() ) this.moveDown();
+        else  {
+
+            if ( !this.checkObstacleSurfaces() ) {
+                this.standing = false;
+                this.moveDown();
+            }
             else { 
                 this.yDownVelocity = 0;
                 this.standing = true;
@@ -86,7 +98,7 @@ export default class MovableSprite extends Sprite {
         for (let obstacle of this.obstacles) {
 
             if (
-                obstacle.x-this.width > this.x || 
+                obstacle.x-this.width-1 > this.x || 
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
                 this.x > obstacle.x
@@ -101,11 +113,18 @@ export default class MovableSprite extends Sprite {
         }
                 
     }
-    jump() {
-        this.jumping = false;
-        this.standing = false;
-        this.yUpVelocity = 20;
+    shortJump() {
+        this.yUpVelocity += 20;
+        this.standing = false;      
     }
+    
+    fullJump() {
+        this.shortJumping = false;
+        this.standing = false;
+        this.yUpVelocity += 10;
+        this.longJumping = false;
+ 
+    }  
     checkObstacleSurfaces() {
             //create surfaces array with floor in index 0
             const surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
