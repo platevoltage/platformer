@@ -38,7 +38,7 @@ export default class MovableSprite extends Sprite {
                 this.standing = false;
                 this.moveDown();
             }
-            else { 
+            else if (this.yUpVelocity == 0) { 
                 this.yDownVelocity = 0;
                 this.standing = true;
             }
