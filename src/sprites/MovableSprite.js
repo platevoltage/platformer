@@ -22,8 +22,10 @@ export default class MovableSprite extends Sprite {
         if (this.jumping) {
             this.jump();
         }
+        //falling
         else if (this.yUpVelocity == 0 && this.yDownVelocity >= 0) {
-            this.fall();
+            if ( !this.checkObstacleSurfaces() ) this.moveDown();
+            else this.yDownVelocity = 0;
         }
         //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
@@ -94,38 +96,52 @@ export default class MovableSprite extends Sprite {
     }
     jump() {
         this.jumping = false;
-        this.yUpVelocity = 30;
+        this.yUpVelocity = 20;
     }
-    fall() {
-        //create surfaces array with floor in index 0
-        const surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
-        //check every obstacle for top surfaces and push into surfaces array
-        for (let obstacle of this.obstacles) {
-            surfaces.push( 
+    checkObstacleSurfaces() {
+            //create surfaces array with floor in index 0
+            const surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
+            //check every obstacle for top surfaces and push into surfaces array
+
+            for (let obstacle of this.obstacles) {
+                let isObstacleUnderneath = 
                 this.y >= obstacle.y-obstacle.height-1 && 
                 this.x+this.width >= obstacle.x && 
-                this.x < obstacle.x+obstacle.width
-            )
-        }
-        //if any element in surfaces is true, the sprite doesnt fall
-        if ( surfaces.some( (surface) => surface ) ) {
-            if (this.yDownVelocity>1) this.y-=this.yDownVelocity;
-            this.yDownVelocity=0 ;
-            
-            
-            
-        } 
-        else {
-            this.yDownVelocity+=1;
-            for (let i=0; i < this.yDownVelocity; i++) {
-                this.y++;
-
+                this.x < obstacle.x+obstacle.width;
+                surfaces.push(isObstacleUnderneath);
             }
-
-            
-        }
-        console.log(this.yUpVelocity, this.yDownVelocity);
+            //if play is hitting any surface, return true
+            return surfaces.some( (surface) => surface );
     }
+    fallOrStand() {
+
+            //if any element in surfaces is true, the sprite doesnt fall
+            if ( surfaces.some( (surface) => surface ) ) {
+                if (this.yDownVelocity>1) this.y-=this.yDownVelocity;
+                this.yDownVelocity=0 ;
+                
+                
+            } 
+            else {
+                this.yDownVelocity+=1;
+                console.log(surfaces);
+                for (let i=0; i < this.yDownVelocity; i++) {
+                    this.y++;
+                    
+                }  
+            }
+    }
+    moveDown() {
+        for (let i = 0; i < this.yDownVelocity; i++) {
+
+            this.y++;
+            if (this.checkObstacleSurfaces()) break;
+        }
+        if (this.yDownVelocity < 20) this.yDownVelocity++;
+    }
+
+
+
     displayStats() {
         this.ctx.fillStyle = this.color;
         this.ctx.font = "30px Arial";
