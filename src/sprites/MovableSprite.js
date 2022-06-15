@@ -17,13 +17,23 @@ export default class MovableSprite extends Sprite {
     } 
     update() {
 
-        // this.ctx.fillText(this.yUpVelocity, 840, 100);
+        // this.ctx.fillText(this.checkObstacleCeilings(), 840, 100);
         // this.ctx.fillText(this.standing, 860, 100);
         // this.ctx.fillText(this.shortJumping, 930, 100);
         // this.ctx.fillText(this.longJumping, 930, 130);
+        // console.log(this.checkObstacleCeilings());
 
         //jumping
-        this.y-=this.yUpVelocity;
+            //check for obstacles above while adding to velocity
+        for (var i = 0; i < this.yUpVelocity; i++) {
+            this.y--;
+            if (this.checkObstacleCeilings()) {
+                this.yUpVelocity = 0;
+                this.longJumping = false;
+                this.shortJumping = false;      
+            } 
+        }
+            
         if (this.yUpVelocity > 0) this.yUpVelocity--;
 
         if (this.shortJumping && this.standing) {
@@ -145,6 +155,20 @@ export default class MovableSprite extends Sprite {
             }
             //if play is hitting any surface, return true
             return surfaces.some( (surface) => surface );
+    }
+    checkObstacleCeilings() {
+        const ceilings = [];
+
+        for (let obstacle of this.obstacles) {
+            let isObstacleAbove =
+                this.y-this.height == obstacle.y && 
+                this.x+this.width >= obstacle.x && 
+                this.x < obstacle.x+obstacle.width &&
+                obstacle.height > 1;
+
+            ceilings.push(isObstacleAbove);
+        }
+        return ceilings.some( (ceilings) => ceilings);
     }
     moveDown() {
         for (let i = 0; i < this.yDownVelocity; i++) {

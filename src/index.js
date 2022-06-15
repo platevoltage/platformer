@@ -1,5 +1,6 @@
 
 import Floor from "./sprites/Floor";
+import FloorWithBottom from "./sprites/FloorWithBottom";
 import Player from "./sprites/Player";
 
 const canvasWidth = 1000;
@@ -28,10 +29,12 @@ function main() {
     let jumpPressed = false;
     let jumpDuration = 0;
 
+    createFloor(-100, 20, 6000);
     createPlayer();
+
     createFloor(200, 90, 100);
-    createFloor(500, 152, 100);
-    createFloor(700, 203, 100);
+    createFloorWithBottom(500, 223, 100);
+    createFloor(700, 223, 100);
 
 
 
@@ -100,8 +103,13 @@ function main() {
         obstacles.push(floor);
         // floor.init();
     }
+    function createFloorWithBottom(x,y,width) {
+        const floor = new FloorWithBottom(gameArea.context, x, canvasHeight-y, width)
+        obstacles.push(floor);
+        // floor.init();
+    }
     function createPlayer() {
-        player = new Player(gameArea.context, 20, canvasHeight);
+        player = new Player(gameArea.context, 20, canvasHeight-21);
         // player.init();
     }
 }
