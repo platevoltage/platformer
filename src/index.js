@@ -32,7 +32,7 @@ function main() {
     createFloor(-100, 20, 6000);
     createPlayer();
 
-    createFloor(200, 90, 100);
+    createFloorWithBottom(200, 90, 100);
     createFloorWithBottom(500, 223, 100);
     createFloor(700, 223, 100);
 
@@ -52,7 +52,7 @@ function main() {
         if (jumpDuration == 5) {
             player.longJumping = true;
         }
-        player.update();
+        player.update(20);
         player.obstacles = obstacles;
     }
         

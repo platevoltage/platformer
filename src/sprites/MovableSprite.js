@@ -15,8 +15,8 @@ export default class MovableSprite extends Sprite {
         this.yDownVelocity = 0;
         this.obstacles = [];
     } 
-    update() {
-
+    update(xScrollOffset) {
+        this.xScrollOffset = xScrollOffset;
         // this.ctx.fillText(this.checkObstacleCeilings(), 840, 100);
         // this.ctx.fillText(this.standing, 860, 100);
         // this.ctx.fillText(this.shortJumping, 930, 100);
@@ -84,23 +84,23 @@ export default class MovableSprite extends Sprite {
             this.height = 100;
         }        
         //render
-        this.displayStats();
+        // this.displayStats();
         this.render();
         
     }
     moveLeft() {
         for (let obstacle of this.obstacles) {
             if (
-                obstacle.x+obstacle.width+obstacle.xScrollOffset < this.x ||
+                obstacle.x+obstacle.width+obstacle.xScrollOffset < this.x+this.xScrollOffset ||
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
-                this.x < obstacle.x+obstacle.xScrollOffset ||
-                obstacle.height <= 1
+                this.x+this.xScrollOffset < obstacle.x+obstacle.xScrollOffset ||
+                obstacle.height <= 1 
             ) {
 
                 this.x-=Math.floor(this.xLeftVelocity);
             } else {
-                this.x = obstacle.x+obstacle.width+obstacle.xScrollOffset;
+                this.x = obstacle.x+obstacle.width+obstacle.xScrollOffset-this.xScrollOffset;
                 this.xLeftVelocity = 0;
             }
         }
@@ -110,16 +110,16 @@ export default class MovableSprite extends Sprite {
         for (let obstacle of this.obstacles) {
 
             if (
-                obstacle.x-this.width+obstacle.xScrollOffset-1 > this.x || 
+                obstacle.x-this.width+obstacle.xScrollOffset-1 > this.x+this.xScrollOffset || 
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
-                this.x > obstacle.x+obstacle.xScrollOffset ||
+                this.x+this.xScrollOffset > obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1
             ) {
                     
                 this.x+=Math.floor(this.xRightVelocity);
             } else {
-                this.x = obstacle.x-this.width+obstacle.xScrollOffset-1;
+                this.x = obstacle.x-this.width+obstacle.xScrollOffset-this.xScrollOffset-1;
                 this.xRightVelocity = 0;
             }
                 
@@ -146,10 +146,9 @@ export default class MovableSprite extends Sprite {
             for (let obstacle of this.obstacles) {
                 let isObstacleUnderneath = 
                     this.y >= obstacle.y-obstacle.height-1 && 
-                    this.x+this.width >= obstacle.x+obstacle.xScrollOffset && 
-                    this.x < obstacle.x+obstacle.width+obstacle.xScrollOffset && 
-                    // this.y-this.height < obstacle.y;
-                    this.y < obstacle.y; //might cause bug.
+                    this.x+this.width+this.xScrollOffset >= obstacle.x+obstacle.xScrollOffset && 
+                    this.x+this.xScrollOffset < obstacle.x+obstacle.width+obstacle.xScrollOffset && 
+                    this.y < obstacle.y;
 
                 surfaces.push(isObstacleUnderneath);
             }
@@ -162,8 +161,8 @@ export default class MovableSprite extends Sprite {
         for (let obstacle of this.obstacles) {
             let isObstacleAbove =
                 this.y-this.height == obstacle.y && 
-                this.x+this.width >= obstacle.x+obstacle.xScrollOffset && 
-                this.x < obstacle.x+obstacle.width+obstacle.xScrollOffset &&
+                this.x+this.width+this.xScrollOffset >= obstacle.x+obstacle.xScrollOffset && 
+                this.x+this.xScrollOffset < obstacle.x+obstacle.width+obstacle.xScrollOffset &&
                 obstacle.height > 1;
 
             ceilings.push(isObstacleAbove);
@@ -186,7 +185,7 @@ export default class MovableSprite extends Sprite {
         this.ctx.font = "30px Arial";
 
         //render stats for player
-        this.ctx.fillText(`(x) ${this.x} - ${this.x + this.width} (y) ${this.y} - ${this.y - this.height}`, 10,30);
+        this.ctx.fillText(`(x) ${this.x} - ${this.x + this.width} (y) ${this.y} - ${this.y - this.height}   ${this.xScrollOffset}`, 10,30);
 
         //render stats for obstacles
         let spacing = 0;
