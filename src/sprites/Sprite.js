@@ -7,11 +7,6 @@ export default class Sprite {
         this.y = y;
         this.color = "#ff0000";
     }
-    init() { 
-        console.log("new sprite");
-        this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x,this.y,this.width,this.height); 
-    }
     update() {
         this.render();
     }

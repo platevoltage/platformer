@@ -27,9 +27,9 @@ function main() {
     let player;
     let jumpPressed = false;
     let jumpDuration = 0;
-    
+
     createPlayer();
-    createFloor(200, 70, 100);
+    createFloor(200, 90, 100);
     createFloor(500, 152, 100);
     createFloor(700, 203, 100);
 
@@ -98,7 +98,7 @@ function main() {
     function createFloor(x,y,width) {
         const floor = new Floor(gameArea.context, x, canvasHeight-y, width)
         obstacles.push(floor);
-        floor.init();
+        // floor.init();
     }
     function createPlayer() {
         player = new Player(gameArea.context, 20, canvasHeight);

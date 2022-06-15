@@ -17,10 +17,11 @@ export default class MovableSprite extends Sprite {
     } 
     update() {
 
-        this.ctx.fillText(this.yUpVelocity, 840, 100);
-        this.ctx.fillText(this.standing, 860, 100);
-        this.ctx.fillText(this.shortJumping, 930, 100);
-        this.ctx.fillText(this.longJumping, 930, 130);
+        // this.ctx.fillText(this.yUpVelocity, 840, 100);
+        // this.ctx.fillText(this.standing, 860, 100);
+        // this.ctx.fillText(this.shortJumping, 930, 100);
+        // this.ctx.fillText(this.longJumping, 930, 130);
+
         //jumping
         this.y-=this.yUpVelocity;
         if (this.yUpVelocity > 0) this.yUpVelocity--;
@@ -73,7 +74,7 @@ export default class MovableSprite extends Sprite {
             this.height = 100;
         }        
         //render
-        this.displayStats();
+        // this.displayStats();
         this.render();
         
     }
@@ -83,7 +84,8 @@ export default class MovableSprite extends Sprite {
                 obstacle.x+obstacle.width < this.x ||
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
-                this.x < obstacle.x
+                this.x < obstacle.x ||
+                obstacle.height <= 1
             ) {
 
                 this.x-=Math.floor(this.xLeftVelocity);
@@ -101,7 +103,8 @@ export default class MovableSprite extends Sprite {
                 obstacle.x-this.width-1 > this.x || 
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
-                this.x > obstacle.x
+                this.x > obstacle.x ||
+                obstacle.height <= 1
             ) {
                     
                 this.x+=Math.floor(this.xRightVelocity);
@@ -135,7 +138,8 @@ export default class MovableSprite extends Sprite {
                     this.y >= obstacle.y-obstacle.height-1 && 
                     this.x+this.width >= obstacle.x && 
                     this.x < obstacle.x+obstacle.width && 
-                    this.y-this.height < obstacle.y;
+                    // this.y-this.height < obstacle.y;
+                    this.y < obstacle.y; //might cause bug.
 
                 surfaces.push(isObstacleUnderneath);
             }
