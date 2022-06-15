@@ -84,23 +84,23 @@ export default class MovableSprite extends Sprite {
             this.height = 100;
         }        
         //render
-        // this.displayStats();
+        this.displayStats();
         this.render();
         
     }
     moveLeft() {
         for (let obstacle of this.obstacles) {
             if (
-                obstacle.x+obstacle.width < this.x ||
+                obstacle.x+obstacle.width+obstacle.xScrollOffset < this.x ||
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
-                this.x < obstacle.x ||
+                this.x < obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1
             ) {
 
                 this.x-=Math.floor(this.xLeftVelocity);
             } else {
-                this.x = obstacle.x+obstacle.width;
+                this.x = obstacle.x+obstacle.width+obstacle.xScrollOffset;
                 this.xLeftVelocity = 0;
             }
         }
@@ -110,16 +110,16 @@ export default class MovableSprite extends Sprite {
         for (let obstacle of this.obstacles) {
 
             if (
-                obstacle.x-this.width-1 > this.x || 
+                obstacle.x-this.width+obstacle.xScrollOffset-1 > this.x || 
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
-                this.x > obstacle.x ||
+                this.x > obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1
             ) {
                     
                 this.x+=Math.floor(this.xRightVelocity);
             } else {
-                this.x = obstacle.x-this.width-1;
+                this.x = obstacle.x-this.width+obstacle.xScrollOffset-1;
                 this.xRightVelocity = 0;
             }
                 
@@ -146,8 +146,8 @@ export default class MovableSprite extends Sprite {
             for (let obstacle of this.obstacles) {
                 let isObstacleUnderneath = 
                     this.y >= obstacle.y-obstacle.height-1 && 
-                    this.x+this.width >= obstacle.x && 
-                    this.x < obstacle.x+obstacle.width && 
+                    this.x+this.width >= obstacle.x+obstacle.xScrollOffset && 
+                    this.x < obstacle.x+obstacle.width+obstacle.xScrollOffset && 
                     // this.y-this.height < obstacle.y;
                     this.y < obstacle.y; //might cause bug.
 
@@ -162,8 +162,8 @@ export default class MovableSprite extends Sprite {
         for (let obstacle of this.obstacles) {
             let isObstacleAbove =
                 this.y-this.height == obstacle.y && 
-                this.x+this.width >= obstacle.x && 
-                this.x < obstacle.x+obstacle.width &&
+                this.x+this.width >= obstacle.x+obstacle.xScrollOffset && 
+                this.x < obstacle.x+obstacle.width+obstacle.xScrollOffset &&
                 obstacle.height > 1;
 
             ceilings.push(isObstacleAbove);
@@ -192,7 +192,7 @@ export default class MovableSprite extends Sprite {
         let spacing = 0;
         for (let obstacle of this.obstacles) {
             this.ctx.fillStyle = obstacle.color;
-            this.ctx.fillText(`(x) ${obstacle.x} - ${obstacle.x + obstacle.width} (y) ${obstacle.y} - ${obstacle.y - obstacle.height}`, 10,60+spacing);
+            this.ctx.fillText(`(x) ${obstacle.x} - ${obstacle.x + obstacle.width} (y) ${obstacle.y} - ${obstacle.y - obstacle.height}   ${obstacle.xScrollOffset}`, 10,60+spacing);
             spacing+=30;
         }
     }

@@ -44,7 +44,7 @@ function main() {
         gameArea.clear();
 
         for (let obstacle of obstacles) {
-            obstacle.update();
+            obstacle.update(100);
         }
         if (jumpPressed) {
             jumpDuration++;
@@ -101,16 +101,13 @@ function main() {
     function createFloor(x,y,width) {
         const floor = new Floor(gameArea.context, x, canvasHeight-y, width)
         obstacles.push(floor);
-        // floor.init();
     }
     function createFloorWithBottom(x,y,width) {
         const floor = new FloorWithBottom(gameArea.context, x, canvasHeight-y, width)
         obstacles.push(floor);
-        // floor.init();
     }
     function createPlayer() {
         player = new Player(gameArea.context, 20, canvasHeight-21);
-        // player.init();
     }
 }
 

@@ -12,10 +12,9 @@ export default class Floor extends Sprite {
     }
     render() {      
         //overrides parent class to add background element
-
         this.ctx.fillStyle = this.bgColor;
         this.ctx.fillRect(
-            this.x,
+            this.x + this.xScrollOffset,
             this.y,
             this.width,
             this.bgHeight
@@ -24,7 +23,7 @@ export default class Floor extends Sprite {
 
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(
-            this.x,
+            this.x + this.xScrollOffset,
             this.y-this.height,
             this.width,
             this.height
