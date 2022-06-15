@@ -16,7 +16,7 @@ export default class MovableSprite extends Sprite {
         this.obstacles = [];
     }
     update() {
-        this.ctx.fillText(this.xRightVelocity, 800, 100);
+        this.ctx.fillText(this.standing, 800, 100);
         //jumping
         this.y-=this.yUpVelocity;
         if (this.yUpVelocity > 0) this.yUpVelocity--;
@@ -24,7 +24,7 @@ export default class MovableSprite extends Sprite {
             this.jump();
         }
         //falling
-        else if (this.yUpVelocity == 0 && this.yDownVelocity >= 0) {
+        else if (this.yUpVelocity == 0) {
             if ( !this.checkObstacleSurfaces() ) this.moveDown();
             else { 
                 this.yDownVelocity = 0;
@@ -113,31 +113,15 @@ export default class MovableSprite extends Sprite {
 
             for (let obstacle of this.obstacles) {
                 let isObstacleUnderneath = 
-                this.y >= obstacle.y-obstacle.height-1 && 
-                this.x+this.width >= obstacle.x && 
-                this.x < obstacle.x+obstacle.width;
+                    this.y >= obstacle.y-obstacle.height-1 && 
+                    this.x+this.width >= obstacle.x && 
+                    this.x < obstacle.x+obstacle.width && 
+                    this.y-this.height < obstacle.y;
+
                 surfaces.push(isObstacleUnderneath);
             }
             //if play is hitting any surface, return true
             return surfaces.some( (surface) => surface );
-    }
-    fallOrStand() {
-
-            //if any element in surfaces is true, the sprite doesnt fall
-            if ( surfaces.some( (surface) => surface ) ) {
-                if (this.yDownVelocity>1) this.y-=this.yDownVelocity;
-                this.yDownVelocity=0 ;
-                
-                
-            } 
-            else {
-                this.yDownVelocity+=1;
-                console.log(surfaces);
-                for (let i=0; i < this.yDownVelocity; i++) {
-                    this.y++;
-                    
-                }  
-            }
     }
     moveDown() {
         for (let i = 0; i < this.yDownVelocity; i++) {

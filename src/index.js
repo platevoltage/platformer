@@ -26,8 +26,8 @@ function main() {
     const obstacles = [];
     let player;
     createPlayer();
-    createFloor(200, 0, 200);
-    createFloor(600, 130, 200);
+    createFloor(200, 70, 200);
+    createFloor(500, 152, 200);
 
 
 
