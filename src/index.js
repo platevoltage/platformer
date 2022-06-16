@@ -3,6 +3,7 @@ import Floor from "./sprites/Floor";
 import FloorWithBottom from "./sprites/FloorWithBottom";
 import Player from "./sprites/Player";
 import Enemy from "./sprites/Enemy";
+import BreakableBrick from "./sprites/BreakableBrick";
 
 const canvasWidth = 1000;
 const canvasHeight = 480;
@@ -32,15 +33,22 @@ function main() {
     let jumpPressed = false;
     let jumpDuration = 0;
 
-    createFloor(-100, 20, 6000);
     createPlayer();
+    createBreakableBrick(100, 150);
+    createBreakableBrick(150, 150);
+    createBreakableBrick(200, 150);
+    createBreakableBrick(250, 200);
+    createBreakableBrick(300, 200);
+    createBreakableBrick(350, 200);
+
+    createFloor(-100, 20, 6000);
     createFloorWithBottom(-100, 40, 100);
-    createFloorWithBottom(200, 190, 100);
+    // createFloorWithBottom(200, 190, 100);
     createFloorWithBottom(1000, 40, 100);
-    createFloor(700, 223, 100);
-    createEnemy(800, 430, 0);
-    createEnemy(900, 430, 1);
-    createEnemy(970, 430, 2);
+    // createFloor(700, 223, 100);
+    // createEnemy(800, 430, 0);
+    // createEnemy(900, 430, 1);
+    // createEnemy(970, 430, 2);
 
 
 
@@ -123,6 +131,11 @@ function main() {
         const enemy = new Enemy(gameArea.context, x, y, id);
         enemies.push(enemy);
     }
+    function createBreakableBrick(x, y) {
+        const brick = new BreakableBrick(gameArea.context, x, canvasHeight-y)
+        obstacles.push(brick);
+    }
+
     function clearUnusedEnemies() {
         enemies = enemies.filter(enemy => !enemy.isDead);
     }

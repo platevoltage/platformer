@@ -170,7 +170,7 @@ export default class MovableSprite extends Sprite {
                     this.y < obstacle.y;
 
                 surfaces.push(isObstacleUnderneath);
-                if (isObstacleUnderneath && obstacle.isKillable) {
+                if (isObstacleUnderneath && obstacle.isKillable && obstacle.isEnemy) {
                     obstacle.isDead = true;
                     this.bounce();
                 }
@@ -189,7 +189,12 @@ export default class MovableSprite extends Sprite {
                 obstacle.height > 1;
 
             ceilings.push(isObstacleAbove);
+            if (isObstacleAbove && obstacle.isKillable && obstacle.isBreakableBrick) {
+                obstacle.isDead = true;
+                
+            }
         }
+
         return ceilings.some( (ceilings) => ceilings);
     }
     moveDown() {
