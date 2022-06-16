@@ -33,6 +33,7 @@ function main() {
     let jumpPressed = false;
     let jumpDuration = 0;
     let spriteId = 0;
+    let xScrollOffset = 0;
 
     createPlayer();
     createBreakableBrick(100, 150);
@@ -57,13 +58,15 @@ function main() {
     document.addEventListener('keydown', typeLetter);
     document.addEventListener('keyup', releaseLetter);
     function updateGameArea() {
+        xScrollOffset-=.5;
+
         gameArea.clear();
 
         for (let obstacle of obstacles) {
-            obstacle.update(0);
+            obstacle.update(xScrollOffset);
         }
         for (let enemy of enemies) {
-            enemy.update(0);
+            enemy.update(xScrollOffset);
             enemy.obstacles = [...obstacles, ...enemies, player];
         }
         if (jumpPressed) {
@@ -72,7 +75,7 @@ function main() {
         if (jumpDuration == 5) {
             player.longJumping = true;
         }
-        player.update(0);
+        player.update(xScrollOffset);
         player.obstacles = [...obstacles, ...enemies];
     }
         
