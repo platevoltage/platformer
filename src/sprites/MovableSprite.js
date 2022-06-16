@@ -1,8 +1,8 @@
 import Sprite from "./Sprite";
 
 export default class MovableSprite extends Sprite {
-    constructor(ctx ,x,y) {
-        super(ctx, x, y);
+    constructor(ctx ,x,y, id) {
+        super(ctx, x, y, id);
         this.movingLeft = false;
         this.movingRight = false;
         this.shortJumping = false;
@@ -31,8 +31,8 @@ export default class MovableSprite extends Sprite {
             this.movingRight = false;
             this.movingLeft = false;
         }
-        //jumping
-            //check for obstacles above while adding to velocity
+    //jumping
+        //check for obstacles above while adding to velocity
         for (var i = 0; i < this.yUpVelocity; i++) {
             this.y--;
             if (this.checkObstacleCeilings()) {
@@ -50,7 +50,7 @@ export default class MovableSprite extends Sprite {
         else if (this.longJumping && this.shortJumping) {
             this.fullJump();
         }
-        //falling
+    //falling
         else  {
 
             if ( !this.checkObstacleSurfaces() ) {
@@ -62,7 +62,7 @@ export default class MovableSprite extends Sprite {
                 this.standing = true;
             }
         }
-        //moving left
+    //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveLeft();
             if (this.xLeftVelocity < 5) this.xLeftVelocity+=.2;
@@ -73,7 +73,7 @@ export default class MovableSprite extends Sprite {
             this.xLeftVelocity--;
         }
         else this.xLeftVelocity = 0;
-        //moving right
+    //moving right
         if (this.movingRight && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveRight();
             if (this.xRightVelocity < 5) this.xRightVelocity+=.2;      
@@ -91,7 +91,7 @@ export default class MovableSprite extends Sprite {
         else {
             this.standUp();
         }        
-        //render
+    //render
         // this.displayStats();
         this.render();
         
@@ -158,25 +158,28 @@ export default class MovableSprite extends Sprite {
  
     }  
     checkObstacleSurfaces() {
-            //create surfaces array with floor in index 0
-            const surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
-            //check every obstacle for top surfaces and push into surfaces array
+        //create surfaces array with floor in index 0
+        const surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
+        //check every obstacle for top surfaces and push into surfaces array
 
-            for (let obstacle of this.obstacles) {
-                let isObstacleUnderneath = 
-                    this.y >= obstacle.y-obstacle.height-1 && 
-                    this.x+this.width+this.xScrollOffset >= obstacle.x+obstacle.xScrollOffset && 
-                    this.x+this.xScrollOffset < obstacle.x+obstacle.width+obstacle.xScrollOffset && 
-                    this.y < obstacle.y;
+        for (let obstacle of this.obstacles) {
+            let isObstacleUnderneath = 
+                this.y >= obstacle.y-obstacle.height-1 && 
+                this.x+this.width+this.xScrollOffset >= obstacle.x+obstacle.xScrollOffset && 
+                this.x+this.xScrollOffset < obstacle.x+obstacle.width+obstacle.xScrollOffset && 
+                this.y < obstacle.y;
 
-                surfaces.push(isObstacleUnderneath);
-                if (isObstacleUnderneath && obstacle.isKillable && obstacle.isEnemy) {
-                    obstacle.isDead = true;
-                    this.bounce();
-                }
+            surfaces.push(isObstacleUnderneath);
+            if (isObstacleUnderneath) this.objectStandingOn = obstacle.id;
+            this.ctx.fillText(this.objectStandingOn, 840, 100);
+
+            if (isObstacleUnderneath && obstacle.isKillable && obstacle.isEnemy) {
+                obstacle.isDead = true;
+                this.bounce();
             }
-            //if play is hitting any surface, return true
-            return surfaces.some( (surface) => surface );
+        }
+        //if play is hitting any surface, return true
+        return surfaces.some( (surface) => surface );
     }
     checkObstacleCeilings() {
         const ceilings = [];
@@ -189,9 +192,10 @@ export default class MovableSprite extends Sprite {
                 obstacle.height > 1;
 
             ceilings.push(isObstacleAbove);
+            
             if (isObstacleAbove && obstacle.isKillable && obstacle.isBreakableBrick) {
                 obstacle.isDead = true;
-                
+                break;
             }
         }
 

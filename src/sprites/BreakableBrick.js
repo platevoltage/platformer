@@ -1,8 +1,8 @@
 import Sprite from "./Sprite";
 
 export default class BreakableBrick extends Sprite {
-    constructor(ctx ,x,y) {
-        super(ctx,x,y);
+    constructor(ctx ,x,y, id) {
+        super(ctx,x,y, id);
         this.isBreakableBrick = true;
         this.height = 50; 
         this.width = 50;

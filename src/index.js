@@ -32,11 +32,13 @@ function main() {
     let player;
     let jumpPressed = false;
     let jumpDuration = 0;
+    let spriteId = 0;
 
     createPlayer();
     createBreakableBrick(100, 150);
     createBreakableBrick(150, 150);
     createBreakableBrick(200, 150);
+    createBreakableBrick(250, 150);
     createBreakableBrick(250, 200);
     createBreakableBrick(300, 200);
     createBreakableBrick(350, 200);
@@ -46,9 +48,9 @@ function main() {
     // createFloorWithBottom(200, 190, 100);
     createFloorWithBottom(1000, 40, 100);
     // createFloor(700, 223, 100);
-    // createEnemy(800, 430, 0);
-    // createEnemy(900, 430, 1);
-    // createEnemy(970, 430, 2);
+    // createEnemy(800, 430);
+    // createEnemy(900, 430);
+    // createEnemy(970, 430);
 
 
 
@@ -117,23 +119,28 @@ function main() {
     
     
     function createFloor(x,y,width) {
-        const floor = new Floor(gameArea.context, x, canvasHeight-y, width)
+        const floor = new Floor(gameArea.context, x, canvasHeight-y, spriteId, width)
         obstacles.push(floor);
+        spriteId++;
     }
     function createFloorWithBottom(x,y,width) {
-        const floor = new FloorWithBottom(gameArea.context, x, canvasHeight-y, width)
+        const floor = new FloorWithBottom(gameArea.context, x, canvasHeight-y,spriteId, width)
         obstacles.push(floor);
+        spriteId++;
     }
     function createPlayer() {
-        player = new Player(gameArea.context, 20, canvasHeight-21);
+        player = new Player(gameArea.context, 20, canvasHeight-21, spriteId);
+        spriteId++;
     }
-    function createEnemy(x,y, id) {
-        const enemy = new Enemy(gameArea.context, x, y, id);
+    function createEnemy(x,y) {
+        const enemy = new Enemy(gameArea.context, x, y, spriteId);
         enemies.push(enemy);
+        spriteId++;
     }
     function createBreakableBrick(x, y) {
-        const brick = new BreakableBrick(gameArea.context, x, canvasHeight-y)
+        const brick = new BreakableBrick(gameArea.context, x, canvasHeight-y, spriteId)
         obstacles.push(brick);
+        spriteId++;
     }
 
     function clearUnusedEnemies() {

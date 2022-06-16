@@ -1,10 +1,9 @@
 import MovableSprite from "./MovableSprite";
 
 export default class Enemy extends MovableSprite {
-    constructor(ctx,x,y,id) {
-        super(ctx,x,y);
+    constructor(ctx,x,y, id) {
+        super(ctx,x,y, id);
         this.isEnemy = true;
-        this.id = id;
         this.color = "#ff0044";
         this.movingRight = false;
         this.movingLeft = true;

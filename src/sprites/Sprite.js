@@ -1,5 +1,5 @@
 export default class Sprite {
-    constructor(ctx ,x,y) {
+    constructor(ctx ,x,y, id) {
         this.ctx = ctx;
         this.xScrollOffset = 0;
         this.height = 100;
@@ -7,6 +7,7 @@ export default class Sprite {
         this.x = x + this.xScrollOffset;
         this.y = y;
         this.color = "#ff0000";
+        this.id = id;
     }
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
