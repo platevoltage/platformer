@@ -170,8 +170,8 @@ export default class MovableSprite extends Sprite {
                 this.y < obstacle.y;
 
             surfaces.push(isObstacleUnderneath);
-            if (isObstacleUnderneath) this.objectStandingOn = obstacle.id;
-            this.ctx.fillText(this.objectStandingOn, 840, 100);
+            // if (isObstacleUnderneath) this.objectStandingOn = obstacle.id;
+            // this.ctx.fillText(this.objectStandingOn, 840, 100);
 
             if (isObstacleUnderneath && obstacle.isKillable && obstacle.isEnemy) {
                 obstacle.isDead = true;
@@ -195,7 +195,7 @@ export default class MovableSprite extends Sprite {
             
             if (isObstacleAbove && obstacle.isKillable && obstacle.isBreakableBrick) {
                 obstacle.isDead = true;
-                break;
+                break; //loop exits once first brick is destroyed
             }
         }
 
