@@ -63,7 +63,7 @@ function main() {
     document.addEventListener('keyup', releaseLetter);
     function updateGameArea() {
         xScrollOffset-=.5;
-        xScrollOffsetBackground-=1;
+        xScrollOffsetBackground-=3;
 
         gameArea.clear();
         background.update(xScrollOffsetBackground);
