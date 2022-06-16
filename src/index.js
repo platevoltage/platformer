@@ -1,4 +1,5 @@
 
+import Background from "./background/Background";
 import Floor from "./sprites/Floor";
 import FloorWithBottom from "./sprites/FloorWithBottom";
 import Player from "./sprites/Player";
@@ -11,7 +12,7 @@ const canvasHeight = 480;
 
 
 function main() {
-    var gameArea = {
+    const gameArea = {
         canvas : document.createElement("canvas"),
         start : function() {
             this.canvas.width = canvasWidth;
@@ -27,14 +28,17 @@ function main() {
     }
     
     gameArea.start();
+    let background;
     const obstacles = [];
     let enemies = [];
     let player;
     let jumpPressed = false;
     let jumpDuration = 0;
     let spriteId = 0;
+    let xScrollOffsetBackground = 0;
     let xScrollOffset = 0;
 
+    createBackground();
     createPlayer();
     createBreakableBrick(100, 150);
     createBreakableBrick(150, 150);
@@ -49,9 +53,9 @@ function main() {
     // createFloorWithBottom(200, 190, 100);
     createFloorWithBottom(1000, 40, 100);
     // createFloor(700, 223, 100);
-    // createEnemy(800, 430);
-    // createEnemy(900, 430);
-    // createEnemy(970, 430);
+    createEnemy(800, 430);
+    createEnemy(900, 430);
+    createEnemy(970, 430);
 
 
 
@@ -59,9 +63,10 @@ function main() {
     document.addEventListener('keyup', releaseLetter);
     function updateGameArea() {
         xScrollOffset-=.5;
+        xScrollOffsetBackground-=1;
 
         gameArea.clear();
-
+        background.update(xScrollOffsetBackground);
         for (let obstacle of obstacles) {
             obstacle.update(xScrollOffset);
         }
@@ -119,15 +124,17 @@ function main() {
 
     
 
-    
+    function createBackground() {
+        background = new Background(gameArea.context);
+    } 
     
     function createFloor(x,y,width) {
-        const floor = new Floor(gameArea.context, x, canvasHeight-y, spriteId, width)
+        const floor = new Floor(gameArea.context, x, canvasHeight-y, spriteId, width);
         obstacles.push(floor);
         spriteId++;
     }
     function createFloorWithBottom(x,y,width) {
-        const floor = new FloorWithBottom(gameArea.context, x, canvasHeight-y,spriteId, width)
+        const floor = new FloorWithBottom(gameArea.context, x, canvasHeight-y,spriteId, width);
         obstacles.push(floor);
         spriteId++;
     }
