@@ -19,10 +19,16 @@ export default class Background {
             this.height
         );
     //clouds
-        this.ctx.fillStyle = "#333388";
+        this.ctx.fillStyle = "#333388dd";
         this.ctx.fillRect(
             200+this.xScrollOffset,
             100,
+            100,
+            60
+        );
+        this.ctx.fillRect(
+            230+this.xScrollOffset,
+            130,
             100,
             60
         );
@@ -32,6 +38,11 @@ export default class Background {
             100,
             60
         );
-        
+        this.ctx.fillRect(
+            1230+this.xScrollOffset,
+            130,
+            100,
+            60
+        );
     }
 }
