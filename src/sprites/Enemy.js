@@ -7,15 +7,13 @@ export default class Enemy extends MovableSprite {
         this.color = "#ff0044";
         this.movingRight = false;
         this.movingLeft = true;
-        this.xLeftVelocity = 1;
-        this.xRightVelocity = 1;
-        this.isKillable = true;
-        this.isDead = false;
+        this.xLeftVelocity = .2;
+        this.xRightVelocity = .2;
+        // this.isKillable = true;
+    
 
     }
-    standUp() {
-        this.height = 50;
-    }
+
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
 
@@ -54,6 +52,9 @@ export default class Enemy extends MovableSprite {
         //render
         this.render();
         
+    }    
+    standUp() {
+        this.height = 50;
     }
     moveLeft() {
         for (let obstacle of this.obstacles) {
@@ -66,12 +67,13 @@ export default class Enemy extends MovableSprite {
                 obstacle.id == this.id
             ) {
 
-                this.x-=Math.floor(this.xLeftVelocity);
+                this.x-=this.xLeftVelocity;
             } else {
                 this.x = obstacle.x+obstacle.width+obstacle.xScrollOffset-this.xScrollOffset;
                 // this.xLeftVelocity = 0;
                 this.movingLeft = false;
                 this.movingRight = true;
+                if (obstacle.isPlayer) obstacle.isDead = true;
             }
         }
     }
@@ -88,7 +90,7 @@ export default class Enemy extends MovableSprite {
                 obstacle.id == this.id
             ) {
                     
-                this.x+=Math.floor(this.xRightVelocity);
+                this.x+=this.xRightVelocity;
             } else {
                 this.x = obstacle.x-this.width+obstacle.xScrollOffset-this.xScrollOffset-1;
                 // this.xRightVelocity = 0;

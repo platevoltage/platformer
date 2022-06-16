@@ -15,6 +15,8 @@ export default class MovableSprite extends Sprite {
         this.yDownVelocity = 0;
         this.obstacles = [];
         this.objectStandingOn = "none";
+        this.isKillable = true;
+        this.isDead = false;
     } 
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
@@ -23,7 +25,12 @@ export default class MovableSprite extends Sprite {
         // this.ctx.fillText(this.shortJumping, 930, 100);
         // this.ctx.fillText(this.longJumping, 930, 130);
         // console.log(this.checkObstacleCeilings());
-
+        if (this.isDead) {
+            this.y+=10;
+            this.color = "#555555";
+            this.movingRight = false;
+            this.movingLeft = false;
+        }
         //jumping
             //check for obstacles above while adding to velocity
         for (var i = 0; i < this.yUpVelocity; i++) {
@@ -58,7 +65,7 @@ export default class MovableSprite extends Sprite {
         //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveLeft();
-            if (this.xLeftVelocity < 10) this.xLeftVelocity+=.3;
+            if (this.xLeftVelocity < 5) this.xLeftVelocity+=.2;
 
         }
         else if (this.xLeftVelocity > 0) {
@@ -69,7 +76,7 @@ export default class MovableSprite extends Sprite {
         //moving right
         if (this.movingRight && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveRight();
-            if (this.xRightVelocity < 10) this.xRightVelocity+=.3;      
+            if (this.xRightVelocity < 5) this.xRightVelocity+=.2;      
         }
         else if (this.xRightVelocity > 0) {
             this.moveRight();
