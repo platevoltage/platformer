@@ -6,7 +6,7 @@ export default class Background {
         this.color = "#000033";
     }
     update(xScrollOffset) {
-        //causes backround to shift once it scrolls past half of its width in order to repeat
+        //causes backround to shift once it scrolls past half of its width in order to repeat and sets ratio of scrolling to sprite layer.
         this.xScrollOffset = xScrollOffset % this.width/2;
         this.render();
     }

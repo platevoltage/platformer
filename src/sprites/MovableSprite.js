@@ -105,41 +105,37 @@ export default class MovableSprite extends Sprite {
         this.height = 100;
     }
     moveLeft() {
-        var obstacleInTheWay;
+        var obstacleInTheWay = -1;
         for (let obstacle of this.obstacles) {
-            if (
+            if (!(
                 obstacle.x+obstacle.width+obstacle.xScrollOffset < this.x+this.xScrollOffset ||
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
                 this.x+this.xScrollOffset < obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1 
-            ) {
-                obstacleInTheWay = -1;
-            } else {          
-                obstacleInTheWay = obstacle.x+obstacle.width+obstacle.xScrollOffset-this.xScrollOffset;
+            )) {          
+                obstacleInTheWay = obstacle.x+obstacle.width;
             }
         }
         if (obstacleInTheWay < 0) this.x-=Math.floor(this.xLeftVelocity);
         else {
-            console.log("hit")
+            
             this.x = obstacleInTheWay;
             this.xLeftVelocity = 0;
         }
     }
     moveRight() {
-        var obstacleInTheWay;
+        var obstacleInTheWay = -1;
         for (let obstacle of this.obstacles) {
 
-            if (
+            if (!(
                 obstacle.x-this.width+obstacle.xScrollOffset-1 > this.x+this.xScrollOffset || 
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
                 this.x+this.xScrollOffset > obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1
-            ) {
-                obstacleInTheWay = -1;
-            } else {          
-                obstacleInTheWay = obstacle.x-this.width+obstacle.xScrollOffset-this.xScrollOffset-1;
+            )) {          
+                obstacleInTheWay = obstacle.x-this.width-1
             }
         }
         if (obstacleInTheWay < 0) this.x+=Math.floor(this.xRightVelocity);
