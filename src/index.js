@@ -54,8 +54,8 @@ function main() {
     createFloorWithBottom(1000, 40, 100);
     // createFloor(700, 223, 100);
     createEnemy(800, 430);
-    createEnemy(900, 430);
-    createEnemy(970, 430);
+    createEnemy(920, 430);
+    createEnemy(1030, 430);
     
 
 

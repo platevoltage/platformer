@@ -44,7 +44,7 @@ export default class MovableSprite extends Sprite {
             
         if (this.yUpVelocity > 0) this.yUpVelocity--;
 
-        if (this.shortJumping && this.standing) {
+        if (this.shortJumping && this.standing && !this.isDead) {
             this.shortJump();   
         }
         else if (this.longJumping && this.shortJumping) {
@@ -105,27 +105,36 @@ export default class MovableSprite extends Sprite {
         this.height = 100;
     }
     moveLeft() {
-        var obstacleInTheWay = -1;
+        var obstacleInTheWay;
         for (let obstacle of this.obstacles) {
             if (!(
                 obstacle.x+obstacle.width+obstacle.xScrollOffset < this.x+this.xScrollOffset ||
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
                 this.x+this.xScrollOffset < obstacle.x+obstacle.xScrollOffset ||
-                obstacle.height <= 1 
+                obstacle.height <= 1 ||
+                obstacle.id == this.id
             )) {          
-                obstacleInTheWay = obstacle.x+obstacle.width;
+                obstacleInTheWay = obstacle;
             }
         }
-        if (obstacleInTheWay < 0) this.x-=Math.floor(this.xLeftVelocity);
+        if (!obstacleInTheWay) this.x-=this.xLeftVelocity;
         else {
+            if (this.isPlayer) {
+                this.x = obstacleInTheWay.x+obstacleInTheWay.width;
+                this.xLeftVelocity = 0;
+                if (obstacleInTheWay.isEnemy) this.isDead = true;
+            } else {
+                this.movingLeft = false;
+                this.movingRight = true;
+                if (obstacleInTheWay.isPlayer) obstacleInTheWay.isDead = true;
+            }
             
-            this.x = obstacleInTheWay;
-            this.xLeftVelocity = 0;
         }
+ 
     }
     moveRight() {
-        var obstacleInTheWay = -1;
+        var obstacleInTheWay;
         for (let obstacle of this.obstacles) {
 
             if (!(
@@ -133,15 +142,24 @@ export default class MovableSprite extends Sprite {
                 obstacle.y-obstacle.height > this.y ||
                 this.y-this.height > obstacle.y ||
                 this.x+this.xScrollOffset > obstacle.x+obstacle.xScrollOffset ||
-                obstacle.height <= 1
+                obstacle.height <= 1 ||
+                obstacle.id == this.id
             )) {          
-                obstacleInTheWay = obstacle.x-this.width-1
+                obstacleInTheWay = obstacle;
             }
         }
-        if (obstacleInTheWay < 0) this.x+=Math.floor(this.xRightVelocity);
+        if (!obstacleInTheWay) this.x+=this.xRightVelocity;
         else {
-            this.x = obstacleInTheWay;
-            this.xRightVelocity = 0;
+            if (this.isPlayer) {
+
+                this.x = obstacleInTheWay.x-this.width-1;
+                this.xRightVelocity = 0;
+                if (obstacleInTheWay.isEnemy) this.isDead = true;
+            } else {
+                this.movingRight = false;
+                this.movingLeft = true;
+                if (obstacleInTheWay.isPlayer) obstacleInTheWay.isDead = true;
+            }
         }
                 
     }
