@@ -29,7 +29,7 @@ export default class Floor extends Sprite {
             this.height
         );
         
-        
+        return 0;
     }
 
 

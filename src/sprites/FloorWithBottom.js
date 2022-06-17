@@ -7,6 +7,7 @@ export default class FloorWithBottom extends Sprite {
         this.width = width;
         this.color = "#ffff00";
     }
+    
 
 
 

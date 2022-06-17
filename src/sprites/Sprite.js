@@ -12,6 +12,7 @@ export default class Sprite {
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
         this.render();
+        return 0;
     }
     render() {      
         //render
@@ -22,6 +23,7 @@ export default class Sprite {
             this.width,
             this.height
         );
+        return 0;
         
     }
 

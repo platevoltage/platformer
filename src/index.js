@@ -40,18 +40,18 @@ function main() {
 
     createBackground();
     createPlayer();
-    // createBreakableBrick(100, 150);
-    // createBreakableBrick(150, 150);
-    // createBreakableBrick(200, 150);
-    // createBreakableBrick(250, 150);
-    // createBreakableBrick(250, 200);
-    // createBreakableBrick(300, 200);
-    // createBreakableBrick(350, 200);
+    createBreakableBrick(100, 150);
+    createBreakableBrick(150, 150);
+    createBreakableBrick(200, 150);
+    createBreakableBrick(250, 150);
+    createBreakableBrick(250, 200);
+    createBreakableBrick(300, 200);
+    createBreakableBrick(350, 200);
 
     createFloor(-100, 20, 6000);
-    // createFloorWithBottom(-100, 40, 100);
-    // createFloorWithBottom(200, 190, 100);
-    // createFloorWithBottom(1000, 40, 100);
+    createFloorWithBottom(-100, 40, 100);
+    createFloorWithBottom(200, 190, 100);
+    createFloorWithBottom(1000, 40, 100);
     // createFloor(700, 223, 100);
     // createEnemy(800, 430);
     // createEnemy(900, 430);
@@ -63,9 +63,12 @@ function main() {
     document.addEventListener('keyup', releaseLetter);
     function updateGameArea() {
         // xScrollOffset-=.5; 
-        xScrollOffsetBackground-=3;
+        // xScrollOffsetBackground-=3;
 
         gameArea.clear();
+        // if (player.x > 450) {
+        //     xScrollOffset = -(player.x - 650); 
+        // }
         background.update(xScrollOffsetBackground);
         for (let obstacle of obstacles) {
             obstacle.update(xScrollOffset);
@@ -80,7 +83,10 @@ function main() {
         if (jumpDuration == 5) {
             player.longJumping = true;
         }
-        player.update(xScrollOffset);
+        // player.update(xScrollOffset);
+        
+        xScrollOffset = player.update(xScrollOffset);
+
         player.obstacles = [...obstacles, ...enemies];
     }
         

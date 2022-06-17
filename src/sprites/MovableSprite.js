@@ -65,7 +65,7 @@ export default class MovableSprite extends Sprite {
     //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveLeft();
-            if (this.xLeftVelocity < 15) this.xLeftVelocity+=1;
+            if (this.xLeftVelocity < 20) this.xLeftVelocity+=1;
 
         }
         else if (this.xLeftVelocity > 0) {
@@ -76,7 +76,7 @@ export default class MovableSprite extends Sprite {
     //moving right
         if (this.movingRight && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveRight();
-            if (this.xRightVelocity < 15) this.xRightVelocity+=1;      
+            if (this.xRightVelocity < 20) this.xRightVelocity+=1;      
         }
         else if (this.xRightVelocity > 0) {
             this.moveRight();
@@ -84,7 +84,7 @@ export default class MovableSprite extends Sprite {
             this.xRightVelocity--;
         }
         else this.xRightVelocity=0;
-        //crouching
+    //crouching
         if (this.crouching) {
             this.crouch();
         }
@@ -92,8 +92,10 @@ export default class MovableSprite extends Sprite {
             this.standUp();
         }        
     //render
-        // this.displayStats();
-        this.render();
+    // this.displayStats();
+
+    return this.render();
+
         
     }
     crouch() {
@@ -103,6 +105,7 @@ export default class MovableSprite extends Sprite {
         this.height = 100;
     }
     moveLeft() {
+        var obstacleInTheWay;
         for (let obstacle of this.obstacles) {
             if (
                 obstacle.x+obstacle.width+obstacle.xScrollOffset < this.x+this.xScrollOffset ||
@@ -111,16 +114,20 @@ export default class MovableSprite extends Sprite {
                 this.x+this.xScrollOffset < obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1 
             ) {
-
-                this.x-=Math.floor(this.xLeftVelocity);
-            } else {
-                this.x = obstacle.x+obstacle.width+obstacle.xScrollOffset-this.xScrollOffset;
-                this.xLeftVelocity = 0;
+                obstacleInTheWay = -1;
+            } else {          
+                obstacleInTheWay = obstacle.x+obstacle.width+obstacle.xScrollOffset-this.xScrollOffset;
             }
+        }
+        if (obstacleInTheWay < 0) this.x-=Math.floor(this.xLeftVelocity);
+        else {
+            console.log("hit")
+            this.x = obstacleInTheWay;
+            this.xLeftVelocity = 0;
         }
     }
     moveRight() {
-
+        var obstacleInTheWay;
         for (let obstacle of this.obstacles) {
 
             if (
@@ -130,13 +137,15 @@ export default class MovableSprite extends Sprite {
                 this.x+this.xScrollOffset > obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1
             ) {
-                    
-                this.x+=Math.floor(this.xRightVelocity);
-            } else {
-                this.x = obstacle.x-this.width+obstacle.xScrollOffset-this.xScrollOffset-1;
-                this.xRightVelocity = 0;
+                obstacleInTheWay = -1;
+            } else {          
+                obstacleInTheWay = obstacle.x-this.width+obstacle.xScrollOffset-this.xScrollOffset-1;
             }
-                
+        }
+        if (obstacleInTheWay < 0) this.x+=Math.floor(this.xRightVelocity);
+        else {
+            this.x = obstacleInTheWay;
+            this.xRightVelocity = 0;
         }
                 
     }
