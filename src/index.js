@@ -40,29 +40,29 @@ function main() {
 
     createBackground();
     createPlayer();
-    createBreakableBrick(100, 150);
-    createBreakableBrick(150, 150);
-    createBreakableBrick(200, 150);
-    createBreakableBrick(250, 150);
-    createBreakableBrick(250, 200);
-    createBreakableBrick(300, 200);
-    createBreakableBrick(350, 200);
+    // createBreakableBrick(100, 150);
+    // createBreakableBrick(150, 150);
+    // createBreakableBrick(200, 150);
+    // createBreakableBrick(250, 150);
+    // createBreakableBrick(250, 200);
+    // createBreakableBrick(300, 200);
+    // createBreakableBrick(350, 200);
 
     createFloor(-100, 20, 6000);
-    createFloorWithBottom(-100, 40, 100);
+    // createFloorWithBottom(-100, 40, 100);
     // createFloorWithBottom(200, 190, 100);
-    createFloorWithBottom(1000, 40, 100);
+    // createFloorWithBottom(1000, 40, 100);
     // createFloor(700, 223, 100);
-    createEnemy(800, 430);
-    createEnemy(900, 430);
-    createEnemy(970, 430);
+    // createEnemy(800, 430);
+    // createEnemy(900, 430);
+    // createEnemy(970, 430);
 
 
 
     document.addEventListener('keydown', typeLetter);
     document.addEventListener('keyup', releaseLetter);
     function updateGameArea() {
-        xScrollOffset-=.5;
+        // xScrollOffset-=.5; 
         xScrollOffsetBackground-=3;
 
         gameArea.clear();
@@ -108,10 +108,10 @@ function main() {
         if (e.key == "ArrowRight") {
             player.movingRight = false;
         }
-        if (e.key == "ArrowDown" && !e.repeat) {
+        if (e.key == "ArrowDown") {
             player.crouching = false;
         }
-        if (e.key == " " && !e.repeat) {
+        if (e.key == " ") {
             jumpPressed = false;
             jumpDuration = 0;
             player.shortJumping = false;

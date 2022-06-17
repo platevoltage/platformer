@@ -20,7 +20,7 @@ export default class MovableSprite extends Sprite {
     } 
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
-        // this.ctx.fillText(this.objectStandingOn, 840, 100);
+        // this.ctx.fillText(this.xRightVelocity, 840, 100);
         // this.ctx.fillText(this.standing, 860, 100);
         // this.ctx.fillText(this.shortJumping, 930, 100);
         // this.ctx.fillText(this.longJumping, 930, 130);
@@ -65,7 +65,7 @@ export default class MovableSprite extends Sprite {
     //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveLeft();
-            if (this.xLeftVelocity < 5) this.xLeftVelocity+=.2;
+            if (this.xLeftVelocity < 15) this.xLeftVelocity+=1;
 
         }
         else if (this.xLeftVelocity > 0) {
@@ -76,7 +76,7 @@ export default class MovableSprite extends Sprite {
     //moving right
         if (this.movingRight && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveRight();
-            if (this.xRightVelocity < 5) this.xRightVelocity+=.2;      
+            if (this.xRightVelocity < 15) this.xRightVelocity+=1;      
         }
         else if (this.xRightVelocity > 0) {
             this.moveRight();

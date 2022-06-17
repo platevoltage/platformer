@@ -6,6 +6,7 @@ export default class Background {
         this.color = "#000033";
     }
     update(xScrollOffset) {
+        //causes backround to shift once it scrolls past half of its width in order to repeat
         this.xScrollOffset = xScrollOffset % this.width/2;
         this.render();
     }
