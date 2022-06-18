@@ -47,7 +47,7 @@ export default class Player extends MovableSprite {
     //falling
         else  {
 
-            if ( !this.checkObstacleSurfaces() ) {
+            if ( !this.checkObstacleSurfaces()) {
                 this.standing = false;
                 this.moveDown();
             }

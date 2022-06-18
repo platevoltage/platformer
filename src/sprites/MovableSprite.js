@@ -128,9 +128,8 @@ export default class MovableSprite extends Sprite {
     } 
     checkObstacleSurfaces() {
         //create surfaces array with floor in index 0
-        const surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
+        const surfaces = [];
         //check every obstacle for top surfaces and push into surfaces array
-
         for (let obstacle of this.obstacles) {
             let isObstacleUnderneath = 
                 this.y >= obstacle.y-obstacle.height-1 && 
@@ -139,13 +138,12 @@ export default class MovableSprite extends Sprite {
                 this.y < obstacle.y;
 
             surfaces.push(isObstacleUnderneath);
-            // if (isObstacleUnderneath) this.objectStandingOn = obstacle.id;
-            // this.ctx.fillText(this.objectStandingOn, 840, 100);
 
             if (isObstacleUnderneath && obstacle.isKillable && obstacle.isEnemy) {
                 obstacle.isDead = true;
                 this.bounce();
             }
+
         }
         //if play is hitting any surface, return true
         return surfaces.some( (surface) => surface );
@@ -171,8 +169,11 @@ export default class MovableSprite extends Sprite {
         return ceilings.some( (ceilings) => ceilings);
     }
     moveDown() {
+        //kill sprite if dropped below the bottom of the window
+        if (this.y >= this.ctx.canvas.attributes.height.textContent) {
+            this.isDead = true;
+        }
         for (let i = 0; i < this.yDownVelocity; i++) {
-
             this.y++;
             if (this.checkObstacleSurfaces()) break;
         }

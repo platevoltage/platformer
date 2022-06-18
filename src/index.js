@@ -22,7 +22,7 @@ function main() {
             this.context = this.canvas.getContext("2d");
             document.body.insertBefore(this.canvas, document.body.childNodes[0]);
             this.interval = setInterval(updateGameArea, 20);
-            this.garbageCollectionInterval = setInterval(clearUnusedEnemies, 5000);
+            this.garbageCollectionInterval = setInterval(clearUnusedSprites, 5000);
         },
         clear : function() {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -34,7 +34,7 @@ function main() {
     document.addEventListener('keyup', releaseLetter);
   
     let background;
-    const obstacles = [];
+    let allObstacles = [];
     let allEnemies = [];
     let player;
     let jumpPressed = false;
@@ -54,12 +54,12 @@ function main() {
         gameArea.clear();
 
         background.update(xScrollOffset);
-        for (let obstacle of obstacles) {
+        for (let obstacle of allObstacles) {
             obstacle.update(xScrollOffset);
         }
         for (let enemy of allEnemies) {
             enemy.update(xScrollOffset);
-            enemy.obstacles = [...obstacles, ...allEnemies, player];
+            enemy.obstacles = [...allObstacles, ...allEnemies, player];
         }
         if (jumpPressed) {
             jumpDuration++;
@@ -67,11 +67,10 @@ function main() {
         if (jumpDuration == 5) {
             player.longJumping = true;
         }
-        // player.update(xScrollOffset);
         
         xScrollOffset = player.update(xScrollOffset);
 
-        player.obstacles = [...obstacles, ...allEnemies];
+        player.obstacles = [...allObstacles, ...allEnemies];
     }
         
     function typeLetter(e) {
@@ -157,12 +156,12 @@ function main() {
     
     function createFloor(x,y,width) {
         const floor = new Floor(gameArea.context, x, canvasHeight-y, spriteId, width);
-        obstacles.push(floor);
+        allObstacles.push(floor);
         spriteId++;
     }
     function createFloorWithBottom(x,y,width) {
         const floor = new FloorWithBottom(gameArea.context, x, canvasHeight-y,spriteId, width);
-        obstacles.push(floor);
+        allObstacles.push(floor);
         spriteId++;
     }
     function createPlayer(x, y) {
@@ -176,12 +175,13 @@ function main() {
     }
     function createBreakableBrick(x, y) {
         const brick = new BreakableBrick(gameArea.context, x, canvasHeight-y, spriteId)
-        obstacles.push(brick);
+        allObstacles.push(brick);
         spriteId++;
     }
 
-    function clearUnusedEnemies() {
+    function clearUnusedSprites() {
         allEnemies = allEnemies.filter(enemy => !enemy.isDead);
+        allObstacles = allObstacles.filter(obstacle => !obstacle.isDead);
     }
 }
 
