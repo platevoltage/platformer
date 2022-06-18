@@ -6,6 +6,8 @@ export default class Player extends MovableSprite {
         this.color = "#ff00ff"; 
         this.isPlayer = true;
         this.offset = 0;
+        this.height = 100;
+        this.width = 46;
     }
     determineView() {
         // let offset = 0

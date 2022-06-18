@@ -9,6 +9,8 @@ export default class Enemy extends MovableSprite {
         this.movingLeft = true;
         this.xLeftVelocity = 1;
         this.xRightVelocity = 1;
+        this.height = 46;
+        this.width = 46;
     }
 
     update(xScrollOffset) {
@@ -39,18 +41,9 @@ export default class Enemy extends MovableSprite {
         if (this.movingRight) {
             this.moveRight();    
         }
-        //crouching
-        if (this.crouching) {
-            this.crouch();
-        }
-        else {
-            this.standUp();
-        }        
+      
         //render
         this.render();
         
     }    
-    standUp() {
-        this.height = 50;
-    }
 }
