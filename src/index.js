@@ -1,10 +1,11 @@
 
 import Background from "./background/Background";
-import Floor from "./sprites/Floor";
-import FloorWithBottom from "./sprites/FloorWithBottom";
-import Player from "./sprites/Player";
-import Enemy from "./sprites/Enemy";
-import BreakableBrick from "./sprites/BreakableBrick";
+// import Floor from "./sprites/Floor";
+// import FloorWithBottom from "./sprites/FloorWithBottom";
+// import Player from "./sprites/Player";
+// import Enemy from "./sprites/Enemy";
+// import BreakableBrick from "./sprites/BreakableBrick";
+import {Floor, Player, Enemy, BreakableBrick, FloorWithBottom} from "./sprites/"
 
 import one from "./levels/one";
 
