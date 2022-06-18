@@ -1,13 +1,19 @@
-
 import Background from "./background/Background";
+import { one } from "./levels";
 // import Floor from "./sprites/Floor";
 // import FloorWithBottom from "./sprites/FloorWithBottom";
 // import Player from "./sprites/Player";
 // import Enemy from "./sprites/Enemy";
 // import BreakableBrick from "./sprites/BreakableBrick";
-import {Floor, Player, Enemy, BreakableBrick, FloorWithBottom} from "./sprites/"
+import {
+    Floor, 
+    Player, 
+    Enemy, 
+    BreakableBrick, 
+    FloorWithBottom
+} from "./sprites/";
 
-import one from "./levels/one";
+
 
 const canvasWidth = 1000;
 const canvasHeight = 480;

@@ -1,10 +1,10 @@
-import Floor from "./sprites/Floor";
-import FloorWithBottom from "./sprites/FloorWithBottom";
-import Player from "./sprites/Player";
-import Enemy from "./sprites/Enemy";
-import BreakableBrick from "./sprites/BreakableBrick";
+import Floor from "./Floor";
+import FloorWithBottom from "./FloorWithBottom";
+import Player from "./Player";
+import Enemy from "./Enemy";
+import BreakableBrick from "./BreakableBrick";
 
-export default {
+export {
     Floor,
     Player, 
     Enemy, 
