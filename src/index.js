@@ -6,6 +6,8 @@ import Player from "./sprites/Player";
 import Enemy from "./sprites/Enemy";
 import BreakableBrick from "./sprites/BreakableBrick";
 
+import one from "./levels/one";
+
 const canvasWidth = 1000;
 const canvasHeight = 480;
 
@@ -28,53 +30,36 @@ function main() {
     }
     
     gameArea.start();
+    document.addEventListener('keydown', typeLetter);
+    document.addEventListener('keyup', releaseLetter);
+  
     let background;
     const obstacles = [];
-    let enemies = [];
+    let allEnemies = [];
     let player;
     let jumpPressed = false;
     let jumpDuration = 0;
     let spriteId = 0;
-    let xScrollOffsetBackground = 0;
     let xScrollOffset = 0;
 
-    createBackground();
-    createPlayer();
-    createBreakableBrick(100, 150);
-    createBreakableBrick(150, 150);
-    createBreakableBrick(200, 150);
-    createBreakableBrick(250, 150);
-    createBreakableBrick(250, 200);
-    createBreakableBrick(300, 200);
-    createBreakableBrick(350, 200);
-
-    createFloor(-100, 20, 6000);
-    createFloorWithBottom(-100, 40, 100);
-    // createFloorWithBottom(200, 190, 100);
-    createFloorWithBottom(1000, 40, 100);
-    // createFloor(700, 223, 100);
-    createEnemy(800, 430);
-    createEnemy(920, 430);
-    createEnemy(1030, 430);
     
+    //level select
+    const levelObjects = one(canvasHeight);  
+    createLevel();
 
 
-    document.addEventListener('keydown', typeLetter);
-    document.addEventListener('keyup', releaseLetter);
+
     function updateGameArea() {
-        // xScrollOffset-=.5; 
-        // xScrollOffsetBackground-=3;
+
         gameArea.clear();
-        // if (player.x > 450) {
-        //     xScrollOffset = -(player.x - 650); 
-        // }
+
         background.update(xScrollOffset);
         for (let obstacle of obstacles) {
             obstacle.update(xScrollOffset);
         }
-        for (let enemy of enemies) {
+        for (let enemy of allEnemies) {
             enemy.update(xScrollOffset);
-            enemy.obstacles = [...obstacles, ...enemies, player];
+            enemy.obstacles = [...obstacles, ...allEnemies, player];
         }
         if (jumpPressed) {
             jumpDuration++;
@@ -86,7 +71,7 @@ function main() {
         
         xScrollOffset = player.update(xScrollOffset);
 
-        player.obstacles = [...obstacles, ...enemies];
+        player.obstacles = [...obstacles, ...allEnemies];
     }
         
     function typeLetter(e) {
@@ -125,7 +110,44 @@ function main() {
         }
     }
 
-
+    function createLevel() {
+        Object.keys(levelObjects).forEach(key => {
+            switch (key) {
+                case "background": {
+                    createBackground(levelObjects.background);
+                    break;
+                }
+                case "player": {
+                    createPlayer(...levelObjects.player);
+                    break;
+                }
+                case "floors": {
+                    for (let params of levelObjects.floors) {
+                        createFloor(...params);
+                    }
+                    break;
+                }
+                case "floorsWithBottom": {
+                    for (let params of levelObjects.floorsWithBottom) {
+                        createFloorWithBottom(...params);
+                    }
+                    break;
+                }
+                case "breakableBricks": {
+                    for (let params of levelObjects.breakableBricks) {
+                        createBreakableBrick(...params);
+                    }
+                    break;
+                }
+                case "enemies": {
+                    for (let params of levelObjects.enemies) {
+                        createEnemy(...params);
+                    }
+                    break;
+                }
+            }
+        });
+    }
 
     
 
@@ -143,13 +165,13 @@ function main() {
         obstacles.push(floor);
         spriteId++;
     }
-    function createPlayer() {
-        player = new Player(gameArea.context, 20, canvasHeight-21, spriteId);
+    function createPlayer(x, y) {
+        player = new Player(gameArea.context, x, y, spriteId);
         spriteId++;
     }
     function createEnemy(x,y) {
         const enemy = new Enemy(gameArea.context, x, y, spriteId);
-        enemies.push(enemy);
+        allEnemies.push(enemy);
         spriteId++;
     }
     function createBreakableBrick(x, y) {
@@ -159,7 +181,7 @@ function main() {
     }
 
     function clearUnusedEnemies() {
-        enemies = enemies.filter(enemy => !enemy.isDead);
+        allEnemies = allEnemies.filter(enemy => !enemy.isDead);
     }
 }
 

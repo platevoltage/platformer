@@ -41,7 +41,7 @@ export default class Player extends MovableSprite {
         if (this.shortJumping && this.standing && !this.isDead) {
             this.shortJump();   
         }
-        else if (this.longJumping && this.shortJumping) {
+        else if (this.longJumping && this.shortJumping && this.yUpVelocity > 0) {
             this.fullJump();
         }
     //falling
@@ -95,6 +95,18 @@ export default class Player extends MovableSprite {
     standUp() {
         this.height = 100;
     }
+    shortJump() {
+        this.yUpVelocity = 20;
+        this.standing = false;      
+    }
+    
+    fullJump() {
+        this.shortJumping = false;
+        this.standing = false;
+        this.yUpVelocity += 10;
+        this.longJumping = false;
+ 
+    } 
     render() {   
         //render
         this.ctx.fillStyle = this.color;

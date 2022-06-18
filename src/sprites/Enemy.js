@@ -9,9 +9,6 @@ export default class Enemy extends MovableSprite {
         this.movingLeft = true;
         this.xLeftVelocity = 1;
         this.xRightVelocity = 1;
-        // this.isKillable = true;
-    
-
     }
 
     update(xScrollOffset) {

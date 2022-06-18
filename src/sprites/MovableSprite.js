@@ -125,20 +125,7 @@ export default class MovableSprite extends Sprite {
     bounce() {
         this.yUpVelocity = 26;
         this.standing = false;  
-    }
-
-    shortJump() {
-        this.yUpVelocity = 20;
-        this.standing = false;      
-    }
-    
-    fullJump() {
-        this.shortJumping = false;
-        this.standing = false;
-        this.yUpVelocity += 10;
-        this.longJumping = false;
- 
-    }  
+    } 
     checkObstacleSurfaces() {
         //create surfaces array with floor in index 0
         const surfaces = [this.y >= this.ctx.canvas.attributes.height.textContent-1];
