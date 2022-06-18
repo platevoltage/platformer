@@ -140,10 +140,7 @@ export default class MovableSprite extends Sprite {
             surfaces.push(isObstacleUnderneath);
 
             if (isObstacleUnderneath && obstacle.isKillable) {
-                if (obstacle.isEnemy) {
-                    obstacle.isDead = true;
-                }
-                if (this.isEnemy && obstacle.isPlayer) {
+                if (obstacle.isEnemy || (this.isEnemy && obstacle.isPlayer)) {
                     obstacle.isDead = true;
                 }
                 this.bounce();
