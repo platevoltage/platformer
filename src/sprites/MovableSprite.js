@@ -142,8 +142,8 @@ export default class MovableSprite extends Sprite {
             if (isObstacleUnderneath && obstacle.isKillable) {
                 if (obstacle.isEnemy || (this.isEnemy && obstacle.isPlayer)) {
                     obstacle.isDead = true;
+                    this.bounce();
                 }
-                this.bounce();
             }
 
         }
