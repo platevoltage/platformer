@@ -23,7 +23,9 @@ export default function one(canvasHeight) {
         enemies : [                             //x, y
             [800, 430],
             [920, 430],
-            [1030, 430]
+            [1030, 430],
+            [300, 0],
+            
         ]
     }     
 }
