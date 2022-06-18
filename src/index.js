@@ -1,4 +1,4 @@
-import Background from "./background/Background";
+import { Background } from "./backgrounds";
 import { one } from "./levels";
 // import Floor from "./sprites/Floor";
 // import FloorWithBottom from "./sprites/FloorWithBottom";
