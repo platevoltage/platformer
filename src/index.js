@@ -153,8 +153,8 @@ function main() {
 
     
 
-    function createBackground() {
-        background = new Background(gameArea.context, 1);
+    function createBackground(bgSelect) {
+        background = new Background(gameArea.context, bgSelect);
     } 
     
     function createFloor(x,y,width) {

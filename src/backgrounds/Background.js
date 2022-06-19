@@ -1,3 +1,4 @@
+import day from "./day";
 import night from "./night";
 
 export default class Background {
@@ -7,7 +8,8 @@ export default class Background {
         this.windowHeight = ctx.canvas.attributes.height.textContent;
         this.bgSelect = bgSelect;
         this.background = [
-            night,
+            night, //dummy
+            day,
             night 
         ]
     }

@@ -2,7 +2,7 @@
 export default function(canvasHeight) {
 
     return {
-        background: 1,                          //background select
+        background: 2,                          //background select
         player: [20, canvasHeight - 21],        //x, y
         floors: [
             [-100, 20, 6000]
