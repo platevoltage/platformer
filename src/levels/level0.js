@@ -1,5 +1,5 @@
 
-export default function one(canvasHeight) {
+export default function(canvasHeight) {
 
     return {
         background: 1,                          //background select

@@ -1,10 +1,6 @@
 import { Background } from "./backgrounds";
-import { one } from "./levels";
-// import Floor from "./sprites/Floor";
-// import FloorWithBottom from "./sprites/FloorWithBottom";
-// import Player from "./sprites/Player";
-// import Enemy from "./sprites/Enemy";
-// import BreakableBrick from "./sprites/BreakableBrick";
+import levels from "./levels";
+
 import {
     Floor, 
     Player, 
@@ -51,7 +47,7 @@ function main() {
 
     
     //level select
-    const levelObjects = one(canvasHeight);  
+    const levelObjects = levels[0](canvasHeight);  
     createLevel();
 
 
