@@ -1,7 +1,7 @@
 import Sprite from "./Sprite";
 
 export default class MovableSprite extends Sprite {
-    constructor(ctx ,x,y, id) {
+    constructor(ctx, x, y, id) {
         super(ctx, x, y, id);
         this.movingLeft = false;
         this.movingRight = false;

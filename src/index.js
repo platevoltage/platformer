@@ -5,7 +5,8 @@ import {
     Floor, 
     Player, 
     Enemy, 
-    BreakableBrick, 
+    BreakableBrick,
+    Brick, 
     FloorWithBottom
 } from "./sprites/";
 
@@ -47,7 +48,7 @@ function main() {
 
     
     //level select
-    const levelObjects = levels[0](canvasHeight);  
+    const levelObjects = levels[1](canvasHeight);  
     createLevel();
 
 
@@ -141,6 +142,12 @@ function main() {
                     }
                     break;
                 }
+                case "bricks": {
+                    for (let params of levelObjects.bricks) {
+                        createBrick(...params);
+                    }
+                    break;
+                }
                 case "enemies": {
                     for (let params of levelObjects.enemies) {
                         createEnemy(...params);
@@ -178,6 +185,11 @@ function main() {
     }
     function createBreakableBrick(x, y) {
         const brick = new BreakableBrick(gameArea.context, x, canvasHeight-y, spriteId)
+        allObstacles.push(brick);
+        spriteId++;
+    }
+    function createBrick(x, y) {
+        const brick = new Brick(gameArea.context, x, canvasHeight-y, spriteId)
         allObstacles.push(brick);
         spriteId++;
     }

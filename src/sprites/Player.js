@@ -1,9 +1,9 @@
 import MovableSprite from "./MovableSprite";
 
 export default class Player extends MovableSprite {
-    constructor(ctx,x,y, id) {
-        super(ctx,x,y, id);
-        this.color = "#ff00ff"; 
+    constructor(ctx, x, y, id) {
+        super(ctx, x, y, id);
+        this.color = "#a41f19"; 
         this.isPlayer = true;
         this.offset = 0;
         this.height = 100;
@@ -16,11 +16,8 @@ export default class Player extends MovableSprite {
     }
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
-        // this.ctx.fillText(this.xRightVelocity, 840, 100);
-        // this.ctx.fillText(this.standing, 860, 100);
-        // this.ctx.fillText(this.shortJumping, 930, 100);
-        // this.ctx.fillText(this.longJumping, 930, 130);
-        // console.log(this.checkObstacleCeilings());
+
+    //handle death
         if (this.isDead) {
             this.y+=10;
             this.color = "#555555";

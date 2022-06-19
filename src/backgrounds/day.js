@@ -1,5 +1,5 @@
 export default function(ctx, xScrollOffset, windowWidth, windowHeight, i) {
-    const color = "#88aadd";
+    const color = "#7f77fe";
     //sky
         ctx.fillStyle = color;
         ctx.fillRect(
@@ -9,7 +9,7 @@ export default function(ctx, xScrollOffset, windowWidth, windowHeight, i) {
             windowHeight
         );
     //clouds
-        ctx.fillStyle = "#ffffff33";
+        ctx.fillStyle = "#ffffffaa";
         ctx.fillRect(
             200+xScrollOffset + windowWidth*i,
             100,

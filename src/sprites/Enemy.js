@@ -5,7 +5,7 @@ export default class Enemy extends MovableSprite {
         super(ctx,x,y, id);
         this.isActivated = false;
         this.isEnemy = true;
-        this.color = "#ff0044";
+        this.color = "#863c04";
         this.movingRight = false;
         this.movingLeft = true;
         this.xLeftVelocity = 1;
