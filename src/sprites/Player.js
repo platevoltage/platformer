@@ -88,7 +88,7 @@ export default class Player extends MovableSprite {
             this.standUp();
         }        
     //render
-    // this.displayStats();
+    this.displayStats();
     return this.render();      
     }
     crouch() {
@@ -108,7 +108,22 @@ export default class Player extends MovableSprite {
         this.yUpVelocity += 10;
         this.longJumping = false;
  
-    } 
+    }
+    displayStats() {
+        this.ctx.fillStyle = this.color;
+        this.ctx.font = "16px Arial";
+
+        //render stats for player
+        this.ctx.fillText(`(x) ${this.x} - ${this.x + this.width} (y) ${this.y} - ${this.y - this.height}   ${this.xScrollOffset}`, 10,30);
+
+        //render stats for obstacles
+        let spacing = 0;
+        for (let obstacle of this.obstacles) {
+            this.ctx.fillStyle = obstacle.color;
+            this.ctx.fillText(`(x) ${obstacle.x} - ${obstacle.x + obstacle.width} (y) ${obstacle.y} - ${obstacle.y - obstacle.height}   ${obstacle.xScrollOffset}`, 10,60+spacing);
+            spacing+=16;
+        }
+    }
     render() {   
         //render
         this.ctx.fillStyle = this.color;

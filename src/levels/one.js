@@ -25,6 +25,7 @@ export default function one(canvasHeight) {
             [920, 430],
             [1030, 430],
             [300, 0],
+            [1500, 0]
             
         ]
     }     
