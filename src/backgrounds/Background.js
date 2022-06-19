@@ -1,40 +1,24 @@
+import night from "./night";
+
 export default class Background {
-    constructor(ctx) {
+    constructor(ctx, bgSelect) {
         this.ctx = ctx;
-        this.height = 480;
-        this.width = 1000;
-        this.color = "#000033";
+        this.windowWidth = ctx.canvas.attributes.width.textContent;
+        this.windowHeight = ctx.canvas.attributes.height.textContent;
+        this.bgSelect = bgSelect;
+        this.background = [
+            night,
+            night 
+        ]
     }
     update(xScrollOffset) {
         //sets ratio of scrolling to sprite layer.
-        this.xScrollOffset = (xScrollOffset*.5 % this.width);
+        this.xScrollOffset = (xScrollOffset*.5 % this.windowWidth);
         this.render();
     }
     render() {
-    for (let i = 0; i < 2; i++) { 
-        //sky
-            this.ctx.fillStyle = this.color;
-            this.ctx.fillRect(
-                this.xScrollOffset + this.width*i,
-                0,
-                this.width + this.width*i,
-                this.height
-            );
-            this.ctx.fillStyle = this.color;
-        //clouds
-            this.ctx.fillStyle = "#333388dd";
-            this.ctx.fillRect(
-                200+this.xScrollOffset + this.width*i,
-                100,
-                100,
-                60
-            );
-            this.ctx.fillRect(
-                230+this.xScrollOffset + this.width*i,
-                130,
-                100,
-                60
-            );
+        for (let i = 0; i < 2; i++) { 
+            this.background[this.bgSelect](this.ctx, this.xScrollOffset, this.windowWidth, this.windowHeight, i);
         }
     }
 }

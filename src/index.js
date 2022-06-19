@@ -1,4 +1,4 @@
-import { Background } from "./backgrounds";
+import Background  from "./backgrounds/Background";
 import levels from "./levels";
 
 import {
@@ -154,7 +154,7 @@ function main() {
     
 
     function createBackground() {
-        background = new Background(gameArea.context);
+        background = new Background(gameArea.context, 1);
     } 
     
     function createFloor(x,y,width) {
