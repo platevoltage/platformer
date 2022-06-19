@@ -88,7 +88,7 @@ export default class Player extends MovableSprite {
             this.standUp();
         }        
     //render
-    this.displayStats();
+    // this.displayStats();
     return this.render();      
     }
     crouch() {
