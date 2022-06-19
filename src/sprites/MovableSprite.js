@@ -172,7 +172,7 @@ export default class MovableSprite extends Sprite {
     }
     moveDown() {
         //kill sprite if dropped below the bottom of the window
-        if (this.y >= this.ctx.canvas.attributes.height.textContent) {
+        if (this.y >= this.windowHeight) {
             this.isDead = true;
         }
         for (let i = 0; i < this.yDownVelocity; i++) {

@@ -1,6 +1,8 @@
 export default class Sprite {
     constructor(ctx ,x,y, id) {
         this.ctx = ctx;
+        this.windowWidth = ctx.canvas.attributes.width.textContent;
+        this.windowHeight = ctx.canvas.attributes.height.textContent;
         this.xScrollOffset = 0;
         this.height = 100;
         this.width = 50;

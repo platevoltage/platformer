@@ -17,8 +17,14 @@ export default class Enemy extends MovableSprite {
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
         //activates enemy when it is 400 pixels past the window boundary
-        if (-xScrollOffset > this.x-this.ctx.canvas.attributes.width.textContent-400) {
+        if (
+            -xScrollOffset > this.x-this.windowWidth-400 &&
+            -xScrollOffset < this.x+400
+            
+        ) {
             this.isActivated = true;
+        } else {
+            this.isActivated = false;
         }
         if (this.isActivated) {
             if (this.isDead) {
