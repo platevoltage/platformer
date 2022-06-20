@@ -18,9 +18,14 @@
     "serve": "webpack serve",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "deploy": "gh-pages -d dist"
+
   },
   "version": "1.0.0",
   "description": "My webpack project",
-  "name": "my-webpack-project"
+  "name": "my-webpack-project",
+  "dependencies": {
+    "gh-pages": "^4.0.0"
+  }
 }
