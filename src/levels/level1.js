@@ -6,6 +6,7 @@ export default function(canvasHeight) {
         background: 1,                          //background select
         bushes: [
             [120, 20],                          //x, y
+            [1000, 20], 
         ],                                      
         floors: [                               //x, y
         ],
