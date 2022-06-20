@@ -20,7 +20,7 @@
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "predeploy": "npm run-script build",
-    "deploy": "npm build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
 
   },
   "version": "1.0.0",
