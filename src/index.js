@@ -163,6 +163,7 @@ function main() {
                     break;
                 }
             }
+            spriteId++;
         });
     }
 
@@ -175,36 +176,29 @@ function main() {
     function createFloor(x,y,width) {
         const floor = new Floor(gameArea.context, x, canvasHeight-y, spriteId, width);
         allObstacles.push(floor);
-        spriteId++;
     }
     function createFloorWithBottom(x,y,width) {
         const floor = new FloorWithBottom(gameArea.context, x, canvasHeight-y,spriteId, width);
         allObstacles.push(floor);
-        spriteId++;
     }
     function createPlayer(x, y) {
         player = new Player(gameArea.context, x, canvasHeight-y, spriteId);
-        spriteId++;
     }
     function createEnemy(x,y) {
         const enemy = new Enemy(gameArea.context, x, canvasHeight-y, spriteId);
         allEnemies.push(enemy);
-        spriteId++;
     }
     function createBreakableBrick(x, y) {
         const brick = new BreakableBrick(gameArea.context, x, canvasHeight-y, spriteId)
         allObstacles.push(brick);
-        spriteId++;
     }
     function createBrick(x, y) {
         const brick = new Brick(gameArea.context, x, canvasHeight-y, spriteId)
         allObstacles.push(brick);
-        spriteId++;
     }
     function createBush(x, y) {
         const bush = new Bush(gameArea.context, x, canvasHeight-y, spriteId)
         allObstacles.push(bush);
-        spriteId++;
     }
     function clearUnusedSprites() {
         allEnemies = allEnemies.filter(enemy => !enemy.isDead);
