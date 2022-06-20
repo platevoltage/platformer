@@ -58,7 +58,7 @@ export default class Player extends MovableSprite {
     //moving left
         if (this.movingLeft && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveLeft();
-            if (this.xLeftVelocity < 20) this.xLeftVelocity+=1;
+            if (this.xLeftVelocity < 20 && !this.isDead) this.xLeftVelocity+=1;
 
         }
         else if (this.xLeftVelocity > 0) {
@@ -69,7 +69,7 @@ export default class Player extends MovableSprite {
     //moving right
         if (this.movingRight && (!this.crouching || this.yUpVelocity > 0)) {
             this.moveRight();
-            if (this.xRightVelocity < 20) this.xRightVelocity+=1;      
+            if (this.xRightVelocity < 20 && !this.isDead) this.xRightVelocity+=1;      
         }
         else if (this.xRightVelocity > 0) {
             this.moveRight();
