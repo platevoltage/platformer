@@ -1,4 +1,4 @@
-import Background  from "./backgrounds/Background";
+import Background  from "./backgrounds";
 import levels from "./levels";
 
 import {

@@ -1,4 +1,7 @@
+import cloud from "./objects/cloud";
+
 export default function(ctx, xScrollOffset, windowWidth, windowHeight, i) {
+    const params = [ctx, xScrollOffset, windowWidth, windowHeight, i];
     const color = "#7f77fe";
     //sky
         ctx.fillStyle = color;
@@ -9,17 +12,5 @@ export default function(ctx, xScrollOffset, windowWidth, windowHeight, i) {
             windowHeight
         );
     //clouds
-        ctx.fillStyle = "#ffffffaa";
-        ctx.fillRect(
-            200+xScrollOffset + windowWidth*i,
-            100,
-            100,
-            60
-        );
-        ctx.fillRect(
-            230+xScrollOffset + windowWidth*i,
-            130,
-            100,
-            60
-        );
+    cloud(200, 100, ...params);
 } 
