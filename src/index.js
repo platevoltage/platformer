@@ -1,5 +1,6 @@
 import Background  from "./backgrounds";
 import levels from "./levels";
+import '../style/style.css';
 
 import {
     Floor, 
