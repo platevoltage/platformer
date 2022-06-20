@@ -72,7 +72,8 @@ export default class MovableSprite extends Sprite {
                 this.y-this.height > obstacle.y ||
                 this.x+this.xScrollOffset < obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1 ||
-                obstacle.id == this.id
+                obstacle.id == this.id ||
+                !obstacle.isObstacle
             )) {          
                 obstacleInTheWay = obstacle;
             }
@@ -102,7 +103,8 @@ export default class MovableSprite extends Sprite {
                 this.y-this.height > obstacle.y ||
                 this.x+this.xScrollOffset > obstacle.x+obstacle.xScrollOffset ||
                 obstacle.height <= 1 ||
-                obstacle.id == this.id
+                obstacle.id == this.id ||
+                !obstacle.isObstacle
             )) {          
                 obstacleInTheWay = obstacle;
             }
@@ -135,7 +137,8 @@ export default class MovableSprite extends Sprite {
                 this.y >= obstacle.y-obstacle.height-1 && 
                 this.x+this.width+this.xScrollOffset >= obstacle.x+obstacle.xScrollOffset && 
                 this.x+this.xScrollOffset < obstacle.x+obstacle.width+obstacle.xScrollOffset && 
-                this.y < obstacle.y;
+                this.y < obstacle.y &&
+                obstacle.isObstacle;
 
             surfaces.push(isObstacleUnderneath);
 
@@ -158,7 +161,8 @@ export default class MovableSprite extends Sprite {
                 this.y-this.height == obstacle.y && 
                 this.x+this.width+this.xScrollOffset >= obstacle.x+obstacle.xScrollOffset && 
                 this.x+this.xScrollOffset < obstacle.x+obstacle.width+obstacle.xScrollOffset &&
-                obstacle.height > 1;
+                obstacle.height > 1 &&
+                obstacle.isObstacle;
 
             ceilings.push(isObstacleAbove);
             

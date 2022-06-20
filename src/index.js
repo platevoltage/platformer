@@ -7,7 +7,8 @@ import {
     Enemy, 
     BreakableBrick,
     Brick, 
-    FloorWithBottom
+    FloorWithBottom,
+    Bush
 } from "./sprites/";
 
 
@@ -148,6 +149,12 @@ function main() {
                     }
                     break;
                 }
+                case "bushes": {
+                    for (let params of levelObjects.bushes) {
+                        createBush(...params);
+                    }
+                    break;
+                }
                 case "enemies": {
                     for (let params of levelObjects.enemies) {
                         createEnemy(...params);
@@ -175,11 +182,11 @@ function main() {
         spriteId++;
     }
     function createPlayer(x, y) {
-        player = new Player(gameArea.context, x, y, spriteId);
+        player = new Player(gameArea.context, x, canvasHeight-y, spriteId);
         spriteId++;
     }
     function createEnemy(x,y) {
-        const enemy = new Enemy(gameArea.context, x, y, spriteId);
+        const enemy = new Enemy(gameArea.context, x, canvasHeight-y, spriteId);
         allEnemies.push(enemy);
         spriteId++;
     }
@@ -193,11 +200,16 @@ function main() {
         allObstacles.push(brick);
         spriteId++;
     }
-
+    function createBush(x, y) {
+        const bush = new Bush(gameArea.context, x, canvasHeight-y, spriteId)
+        allObstacles.push(bush);
+        spriteId++;
+    }
     function clearUnusedSprites() {
         allEnemies = allEnemies.filter(enemy => !enemy.isDead);
         allObstacles = allObstacles.filter(obstacle => !obstacle.isDead);
     }
+   
 }
 
 

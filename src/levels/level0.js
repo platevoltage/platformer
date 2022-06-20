@@ -2,12 +2,15 @@
 export default function(canvasHeight) {
 
     return {
-        background: 2,                          //background select
         player: [20, canvasHeight - 21],        //x, y
+        background: 2,                          //background select
+        bushes: [
+            [750, canvasHeight -21],
+        ],
         floors: [
         ],
         floorsWithBottom: [                     //x, y, width
-        [-100, 20, 6000],
+            [-100, 20, 6000],
             [-100, 40, 100],
             // [1000, 40, 100]
         ],

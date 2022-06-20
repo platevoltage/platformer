@@ -5,7 +5,7 @@ export default class Brick extends Sprite {
         super(ctx,x,y, id);
         this.height = 50; 
         this.width = 50;
-        this.color = "#e3831c";
+        this.color = "#888800";
         this.isKillable = false;
         this.isDead = false;
     }

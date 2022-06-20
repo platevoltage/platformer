@@ -10,11 +10,12 @@ export default class Sprite {
         this.y = y;
         this.color = "#ff0000";
         this.id = id;
+        this.isObstacle = true;
     }
     update(xScrollOffset) {
         this.xScrollOffset = xScrollOffset;
         this.render();
-        return 0;
+      
     }
     render() {      
         //render
@@ -25,7 +26,7 @@ export default class Sprite {
             this.width,
             this.height
         );
-        return 0;
+  
         
     }
 
