@@ -1,5 +1,5 @@
 
-export default function(canvasHeight) {
+export default function() {
 
     return {
         player: [20, 21],        //x, y

@@ -1,16 +1,17 @@
 
-export default function(canvasHeight) {
+export default function() {
 
     return {
-        player: [20, canvasHeight - 21],        //x, y
-        background: 2,                          //background select
+        player: [20, 21],        //x, y
+        background: 1,                          //background select
         bushes: [
-            [750, canvasHeight -21],
-        ],
-        floors: [
+            [120, 20],                          //x, y
+            [1000, 20], 
+        ],                                      
+        floors: [                               //x, y
         ],
         floorsWithBottom: [                     //x, y, width
-            [-100, 20, 6000],
+            [-100, 0, 6000],
             [-100, 40, 100],
             // [1000, 40, 100]
         ],
@@ -26,7 +27,7 @@ export default function(canvasHeight) {
             [800, 350],
         ],
         enemies : [                             //x, y
-            [750, canvasHeight -21],
+            [750, 21],
             // [920, 430],
             // [1030, 430],
             // [300, 0],

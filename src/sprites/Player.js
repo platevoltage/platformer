@@ -11,7 +11,7 @@ export default class Player extends MovableSprite {
     }
     determineView() {
         // let offset = 0
-        if (this.x > 400) this.offset = -(this.x - 400);
+        if (this.x > 400) this.offset = 400 - this.x;
         return this.offset;
     }
     update(xScrollOffset) {
