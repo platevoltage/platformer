@@ -1,6 +1,6 @@
 # platformer
 
-## https://antieatingactivist.github.io/platformer/
+## https://platevoltage.github.io/platformer/
 
 A canvas based Mario Bros style platforming engine. I make extensive use of Classes to create instances of enemies, platforms, walls, and blocks. The app uses ES6 and is compliled with Webpack. The Arrow keys are used for movement and the space bar is for jumping.
 
